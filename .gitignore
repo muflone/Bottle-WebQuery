@@ -1,0 +1,6 @@
+*.pyc
+*.geany
+__pycache__
+/var/
+/conf/custom.ini
+/conf/app_webquery_custom.ini

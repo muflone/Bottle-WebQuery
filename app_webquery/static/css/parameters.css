@@ -1,0 +1,59 @@
+table#parameters,
+theader#parameters
+{
+  border: 2px solid black;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+
+table#parameters tbody td,
+table#parameters tbody th
+{
+  padding: 2px 5px ;
+  border: 1px solid black;
+  text-align: left;
+}
+
+table#parameters thead td,
+table#parameters tfoot td
+{
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+
+table#parameters tbody th
+{
+  width: 200px;
+}
+
+table#parameters caption
+{
+  white-space: nowrap;
+  background: #4f81bd;
+  color: #ffffff;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
+
+table#parameters input[type="text"],
+table#parameters input[type="password"],
+table#parameters select,
+table#parameters textarea
+{
+  width: 500px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+table#parameters textarea
+{
+  height: 100px;
+}
+
+table#parameters input[type="submit"],
+table#parameters input[type="button"]
+{
+  width: 100px;
+}

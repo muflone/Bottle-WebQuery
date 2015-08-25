@@ -1,0 +1,42 @@
+table.data
+{
+  border: 2px solid black;
+  margin-top: 30px;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+table.data td
+{
+  padding: 0px 5px;
+  border-right: 1px solid black;
+}
+
+table.data th
+{
+  text-align: center;
+  font-weight: normal;
+  color: #ffffff;
+  padding: 2px 5px;
+  background: #4f81bd;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+table.data tbody tr:nth-child(odd) td {
+  background: #ffffff;
+}
+
+table.data tbody tr:nth-child(even) td {
+  background: #dbe5f0;
+}
+
+table.data caption
+{
+  white-space: nowrap;
+  background: #4f81bd;
+  color: #ffffff;
+  border-top: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+}
