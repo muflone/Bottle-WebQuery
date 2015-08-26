@@ -67,4 +67,4 @@ class WebQueryEngineODBC(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEngineODBC
+engine_classes = (WebQueryEngineODBC, )

@@ -71,4 +71,4 @@ class WebQueryEngineMySQL(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEngineMySQL
+engine_classes = (WebQueryEngineMySQL, )

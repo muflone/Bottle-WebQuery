@@ -17,9 +17,11 @@ def detect_db_engines():
     try:
       module = __import__(
         'app_webquery.webquery.%s' % module_name)
-      engine_class = getattr(getattr(module.webquery, module_name),
-        'engine_class')
-      engines[engine_class.descriptor] = engine_class
+      engine_classes = getattr(getattr(module.webquery, module_name),
+        'engine_classes')
+      # Cycle each engine class
+      for engine_class in engine_classes:
+        engines[engine_class.descriptor] = engine_class
     except ImportError:
       logging.info('Skipping DB engine %s' % module_name)
   return engines

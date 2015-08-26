@@ -64,4 +64,4 @@ class WebQueryEngineSQLite3(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEngineSQLite3
+engine_classes = (WebQueryEngineSQLite3, )

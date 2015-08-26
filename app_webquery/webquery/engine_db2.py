@@ -91,4 +91,4 @@ class WebQueryEngineDB2(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEngineDB2
+engine_classes = (WebQueryEngineDB2, )

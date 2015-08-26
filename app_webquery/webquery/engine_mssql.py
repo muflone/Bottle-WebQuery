@@ -74,4 +74,4 @@ class WebQueryEngineMSSQL(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEngineMSSQL
+engine_classes = (WebQueryEngineMSSQL, )

@@ -73,4 +73,4 @@ class WebQueryEnginePostgreSQL(WebQueryEngineBase):
     super(self.__class__, self).save()
     self.connection.commit()
 
-engine_class = WebQueryEnginePostgreSQL
+engine_classes = (WebQueryEnginePostgreSQL, )
