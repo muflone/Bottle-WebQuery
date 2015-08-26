@@ -1,0 +1,70 @@
+import pypyodbc
+import logging
+
+from engine_base import WebQueryEngineBase
+
+class WebQueryEngineODBC(WebQueryEngineBase):
+  description = 'ODBC'
+  descriptor = 'odbc'
+
+  def __init__(self, connection=None, username=None, password=None, database=None):
+    """
+    Create a new connection using the specified connection string, username
+    and password.
+    """
+    super(self.__class__, self).__init__(connection, username, password, database)
+    self.connection = None
+  
+  def open(self):
+    """Open the connection"""
+    super(self.__class__, self).open()
+    self.connection = pypyodbc.connect(
+      connectString = '%s%s' % (self.connection_string, 
+        'DBQ=%s' % self.database if self.database else ''))
+
+  def close(self):
+    """Close the connection"""
+    super(self.__class__, self).close()
+    if self.connection:
+      self.connection.close()
+      self.connection = None
+
+  def execute(self, statement, parameters=None):
+    """Execute a statement"""
+    super(self.__class__, self).execute(statement, parameters)
+    cursor = self.connection.cursor()
+    if parameters is None:
+      cursor.execute(statement)
+    else:
+      cursor.execute(statement, parameters)
+    cursor.close()
+
+  def get_data(self, statement, replaces=None, parameters=None):
+    """Execute a statement and returns the data"""
+    super(self.__class__, self).get_data(statement, replaces, parameters)
+    if replaces is not None:
+      statement = statement % replaces
+    cursor = self.connection.cursor()
+    if parameters is None:
+      cursor.execute(statement)
+    else:
+      cursor.execute(statement, parameters)
+    fields = [r[0] for r in cursor.description]
+    data = cursor.fetchall()
+    cursor.close()
+    logging.info('%s: Got %d records' % (
+      self.__class__.__name__, len(data)))
+    return (fields, data)
+
+  def list_tables(self):
+    """List all the tables"""
+    super(self.__class__, self).list_tables()
+    tables = []
+    return tables
+
+  def save(self):
+    """Save any pending data"""
+    super(self.__class__, self).save()
+    self.connection.commit()
+
+engine_class = WebQueryEngineODBC

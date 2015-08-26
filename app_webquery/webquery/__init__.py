@@ -6,6 +6,7 @@ db_engine_modules = (
   'engine_mysql',
   'engine_postgresql',
   'engine_mssql',
+  'engine_odbc',
 )
 
 def detect_db_engines():
