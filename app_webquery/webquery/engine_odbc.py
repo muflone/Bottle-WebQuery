@@ -68,4 +68,16 @@ class WebQueryEngineODBC(WebQueryEngineBase):
     super(WebQueryEngineODBC, self).save()
     self.connection.commit()
 
-engine_classes = (WebQueryEngineODBC, )
+class WebQueryEngineODBCDSN(WebQueryEngineODBC):
+  description = 'ODBC DSN'
+  descriptor = 'odbcdsn'
+
+  def __init__(self, connection=None, username=None, password=None, database=None):
+    """
+    Create a new connection using the specified connection string, username
+    and password.
+    """
+    super(WebQueryEngineODBCDSN, self).__init__(
+      'DSN=%s' % connection, username, password, None)
+
+engine_classes = [WebQueryEngineODBC, WebQueryEngineODBCDSN]
