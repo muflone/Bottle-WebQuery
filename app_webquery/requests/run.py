@@ -55,12 +55,18 @@ class RequestRun(RequestBase):
           (self.values['CATALOG'], ))
         if existing_data:
           self.values['ENGINE'] = existing_data[0][0]
-          self.values['CONNECTION'] = existing_data[0][1]
           self.values['SERVER'] = existing_data[0][2]
           self.values['DATABASE'] = existing_data[0][3]
           self.values['USERNAME'] = existing_data[0][4]
           self.values['PASSWORD'] = existing_data[0][5]
           self.values['ENCODING'] = existing_data[0][6]
+          self.values['CONNECTION'] = self.prepare_connection_string(
+            connection=existing_data[0][1],
+            engine=self.values['ENGINE'],
+            server=self.values['SERVER'],
+            database=self.values['DATABASE'],
+            username=self.values['USERNAME'],
+            password=self.values['PASSWORD'])
         else:
           self.values['ERRORS'].append('Catalog not found')
     engine.close()

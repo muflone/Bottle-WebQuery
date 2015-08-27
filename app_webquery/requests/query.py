@@ -30,11 +30,17 @@ class RequestQuery(RequestBase):
     for catalog in self.values['CATALOGS']:
       if catalog[0] == self.args['CATALOG']:
         catalog_engine = catalog[2]
-        catalog_connection = catalog[3]
         catalog_server = catalog[4]
         catalog_database = catalog[5]
         catalog_username = catalog[6]
         catalog_password = catalog[7]
+        catalog_connection = self.prepare_connection_string(
+          connection=catalog[3],
+          engine=catalog_engine,
+          server=catalog_server,
+          database=catalog_database,
+          username=catalog_username,
+          password=catalog_password)
         catalog_encoding = catalog[8]
         break
     else:

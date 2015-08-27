@@ -77,3 +77,13 @@ class RequestBase(object):
       return text.decode(encoding)
     else:
       return str(text)
+
+  def prepare_connection_string(self, connection, engine, server, database, username, password):
+    """Return a prepared connection string"""
+    return connection % {
+      'ENGINE': engine,
+      'SERVER': server,
+      'DATABASE': database,
+      'USERNAME': username,
+      'PASSWORD': password,
+    }
