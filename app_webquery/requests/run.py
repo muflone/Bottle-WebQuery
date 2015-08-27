@@ -60,6 +60,8 @@ class RequestRun(RequestBase):
           self.values['USERNAME'] = existing_data[0][3]
           self.values['PASSWORD'] = existing_data[0][4]
           self.values['ENCODING'] = existing_data[0][5]
+        else:
+          self.values['ERRORS'].append('Catalog not found')
     engine.close()
     engine = None
     if not self.values['ERRORS']:
