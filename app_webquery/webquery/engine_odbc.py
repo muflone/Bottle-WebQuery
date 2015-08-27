@@ -7,7 +7,7 @@ class WebQueryEngineODBC(WebQueryEngineBase):
   description = 'ODBC'
   descriptor = 'odbc'
 
-  def __init__(self, connection=None, username=None, password=None, database=None):
+  def __init__(self, connection, username, password, database):
     """
     Create a new connection using the specified connection string, username
     and password.
@@ -72,7 +72,7 @@ class WebQueryEngineODBCDSN(WebQueryEngineODBC):
   description = 'ODBC DSN'
   descriptor = 'odbcdsn'
 
-  def __init__(self, connection=None, username=None, password=None, database=None):
+  def __init__(self, connection, username, password, database):
     """
     Create a new connection using the specified connection string, username
     and password.
@@ -97,8 +97,8 @@ def WebQueryEngineODBCClassFactory(name, driver):
   """Create a new class for ODBC connection"""
   def __init__(self, connection, username, password, database):
     """Late constructor for derived class"""
-    WebQueryEngineODBCWithDriver.__init__(self, connection,
-      username, password, database)
+    WebQueryEngineODBCWithDriver.__init__(self,
+      connection, username, password, database)
   newclass = type(name, (WebQueryEngineODBCWithDriver, ),
     {
       '__init__': __init__,

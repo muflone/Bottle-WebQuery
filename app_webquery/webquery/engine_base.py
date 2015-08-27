@@ -1,7 +1,7 @@
 import logging
 
 class WebQueryEngineBase(object):
-  def __init__(self, connection=None, username=None, password=None, database=None):
+  def __init__(self, connection, username, password, database):
     """
     Create a new connection using the specified connection string, username
     and password.
