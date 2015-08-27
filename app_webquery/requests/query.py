@@ -24,21 +24,23 @@ class RequestQuery(RequestBase):
     # Get the configured catalogs
     engine = self.open_settings_db()
     self.values['CATALOGS'] = engine.get_data(
-      'SELECT name, description, engine, connstr, database, '
+      'SELECT name, description, engine, connstr, server, database, '
       'username, password, encoding '
       'FROM catalogs ORDER BY name')[1]
     for catalog in self.values['CATALOGS']:
       if catalog[0] == self.args['CATALOG']:
         catalog_engine = catalog[2]
         catalog_connection = catalog[3]
-        catalog_database = catalog[4]
-        catalog_username = catalog[5]
-        catalog_password = catalog[6]
-        catalog_encoding = catalog[7]
+        catalog_server = catalog[4]
+        catalog_database = catalog[5]
+        catalog_username = catalog[6]
+        catalog_password = catalog[7]
+        catalog_encoding = catalog[8]
         break
     else:
       catalog_engine = ''
       catalog_connection = ''
+      catalog_server = ''
       catalog_database = ''
       catalog_username = ''
       catalog_password = ''
@@ -53,7 +55,8 @@ class RequestQuery(RequestBase):
         catalog_connection,
         catalog_username,
         catalog_password,
-        catalog_database)
+        catalog_database,
+        catalog_server)
       if engine:
         self.values['TABLES'] = [(t, t) for t in engine.list_tables()]
         self.values['FIELDS'], self.values['DATA'] = engine.get_data(

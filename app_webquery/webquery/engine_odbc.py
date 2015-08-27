@@ -7,13 +7,13 @@ class WebQueryEngineODBC(WebQueryEngineBase):
   description = 'ODBC'
   descriptor = 'odbc'
 
-  def __init__(self, connection, username, password, database):
+  def __init__(self, connection, username, password, database, server):
     """
     Create a new connection using the specified connection string, username
     and password.
     """
     super(WebQueryEngineODBC, self).__init__(
-      connection, username, password, database)
+      connection, username, password, database, server)
     self.connection = None
   
   def open(self):
@@ -72,33 +72,33 @@ class WebQueryEngineODBCDSN(WebQueryEngineODBC):
   description = 'ODBC DSN'
   descriptor = 'odbcdsn'
 
-  def __init__(self, connection, username, password, database):
+  def __init__(self, connection, username, password, database, server):
     """
     Create a new connection using the specified connection string, username
     and password.
     """
     super(WebQueryEngineODBCDSN, self).__init__(
-      'DSN=%s' % connection, username, password, None)
+      'DSN=%s' % connection, username, password, database, server)
 
 class WebQueryEngineODBCWithDriver(WebQueryEngineODBC):
   description = 'ODBC DSN'
   descriptor = 'odbcdsn'
 
-  def __init__(self, connection, username, password, database):
+  def __init__(self, connection, username, password, database, server):
     """
     Create a new connection using the specified connection string, username
     and password.
     """
     super(WebQueryEngineODBCWithDriver, self).__init__(
       'Driver=%s;%s;' % (self.driver, connection),
-      username, password, database)
+      username, password, database, server)
 
 def WebQueryEngineODBCClassFactory(name, driver):
   """Create a new class for ODBC connection"""
-  def __init__(self, connection, username, password, database):
+  def __init__(self, connection, username, password, database, server):
     """Late constructor for derived class"""
     WebQueryEngineODBCWithDriver.__init__(self,
-      connection, username, password, database)
+      connection, username, password, database, server)
   newclass = type(name, (WebQueryEngineODBCWithDriver, ),
     {
       '__init__': __init__,

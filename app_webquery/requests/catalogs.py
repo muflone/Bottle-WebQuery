@@ -18,6 +18,7 @@ class RequestCatalogs(RequestBase):
     self.args['DESCRIPTION'] = self.params.get_utf8_item('description')
     self.args['ENGINE'] = self.params.get_item('engine')
     self.args['CONNECTION'] = self.params.get_utf8_item('connection')
+    self.args['SERVER'] = self.params.get_utf8_item('server')
     self.args['DATABASE'] = self.params.get_utf8_item('database')
     self.args['USERNAME'] = self.params.get_utf8_item('username')
     self.args['PASSWORD'] = self.params.get_utf8_item('password')
@@ -39,6 +40,7 @@ class RequestCatalogs(RequestBase):
     existing_description = ''
     existing_engine = ''
     existing_connection = ''
+    existing_server = ''
     existing_database = ''
     existing_username = ''
     existing_password = ''
@@ -48,8 +50,8 @@ class RequestCatalogs(RequestBase):
     # Get existing catalog details
     if self.args['CATALOG']:
       existing_fields, existing_data = engine.get_data(
-          'SELECT name, description, engine, connstr, database, '
-          'username, password, encoding '
+          'SELECT name, description, engine, connstr, '
+          'server, database, username, password, encoding '
           'FROM catalogs '
           'WHERE name=?',
           None,
@@ -66,7 +68,7 @@ class RequestCatalogs(RequestBase):
           return 'REDIRECT:catalogs'
         else:
           existing_catalog, existing_description, existing_engine, \
-            existing_connection, existing_database, \
+            existing_connection, existing_server, existing_database, \
             existing_username, existing_password, existing_encoding = \
             existing_data[0]
     # Check the requested arguments for errors
@@ -85,12 +87,13 @@ class RequestCatalogs(RequestBase):
           logging.debug('Updating catalog: %s' % self.args['CATALOG'])
           engine.execute('UPDATE catalogs '
                          'SET description=?, engine=?, connstr=?, '
-                         'database=?, username=?, password=?, '
-                         'encoding=? '
+                         'server=?, database=?, username=?, '
+                         'password=?, encoding=? '
                          'WHERE name=?', (
                            self.args['DESCRIPTION'],
                            self.args['ENGINE'],
                            self.args['CONNECTION'],
+                           self.args['SERVER'],
                            self.args['DATABASE'],
                            self.args['USERNAME'],
                            self.args['PASSWORD'],
@@ -101,13 +104,14 @@ class RequestCatalogs(RequestBase):
           # Insert new catalog
           logging.debug('Inserting catalog: %s' % self.args['CATALOG'])
           engine.execute('INSERT INTO catalogs(name, description, '
-                         'engine, connstr, database, '
+                         'engine, connstr, server, database, '
                          'username, password, encoding) '
                          'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (
                          self.args['CATALOG'],
                          self.args['DESCRIPTION'],
                          self.args['ENGINE'],
                          self.args['CONNECTION'],
+                         self.args['SERVER'],
                          self.args['DATABASE'],
                          self.args['USERNAME'],
                          self.args['PASSWORD'],
@@ -121,6 +125,7 @@ class RequestCatalogs(RequestBase):
       self.args['DESCRIPTION'] = existing_description
       self.args['ENGINE'] = existing_engine
       self.args['CONNECTION'] = existing_connection
+      self.args['SERVER'] = existing_server
       self.args['DATABASE'] = existing_database
       self.args['USERNAME'] = existing_username
       self.args['PASSWORD'] = existing_password

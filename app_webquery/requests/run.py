@@ -47,8 +47,8 @@ class RequestRun(RequestBase):
     if not self.values['ERRORS']:
         # Get the catalog information
         existing_fields, existing_data = engine.get_data(
-          'SELECT engine, connstr, database, username, password, '
-          'encoding '
+          'SELECT engine, connstr, server, database, username, '
+          'password, encoding '
           'FROM catalogs '
           'WHERE name=?',
           None,
@@ -56,10 +56,11 @@ class RequestRun(RequestBase):
         if existing_data:
           self.values['ENGINE'] = existing_data[0][0]
           self.values['CONNECTION'] = existing_data[0][1]
-          self.values['DATABASE'] = existing_data[0][2]
-          self.values['USERNAME'] = existing_data[0][3]
-          self.values['PASSWORD'] = existing_data[0][4]
-          self.values['ENCODING'] = existing_data[0][5]
+          self.values['SERVER'] = existing_data[0][2]
+          self.values['DATABASE'] = existing_data[0][3]
+          self.values['USERNAME'] = existing_data[0][4]
+          self.values['PASSWORD'] = existing_data[0][5]
+          self.values['ENCODING'] = existing_data[0][6]
         else:
           self.values['ERRORS'].append('Catalog not found')
     engine.close()
@@ -72,7 +73,8 @@ class RequestRun(RequestBase):
         self.values['CONNECTION'],
         self.values['USERNAME'],
         self.values['PASSWORD'],
-        self.values['DATABASE'])
+        self.values['DATABASE'],
+        self.values['SERVER'])
       # Parse parameters
       if self.values['PARAMETERS']:
         list_parameters = self.values['PARAMETERS'].replace(

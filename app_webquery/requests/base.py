@@ -49,17 +49,18 @@ class RequestBase(object):
       connection=configuration.get_database(MODULE_NAME, SETTINGS_DB),
       username=None,
       password=None,
-      database=None)
+      database=None,
+      server=None)
     engine.open()
     return engine
 
-  def open_db_from_engine_type(self, engine_type, name, connection, username, password, database):
+  def open_db_from_engine_type(self, engine_type, name, connection, username, password, database, server):
     """Open a database by its connection using an engine type"""
     engine_class = self.engines.get(engine_type, None)
     if engine_class:
       logging.info('Opening database: (type: %s, name: %s)' % (
         engine_type, name))
-      engine = engine_class(connection, username, password, database)
+      engine = engine_class(connection, username, password, database, server)
       engine.open()
       return engine
     else:

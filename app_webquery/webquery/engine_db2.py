@@ -17,13 +17,13 @@ class WebQueryEngineDB2(WebQueryEngineBase):
   description = 'IBM DB2'
   descriptor = 'db2'
 
-  def __init__(self, connection, username, password, database):
+  def __init__(self, connection, username, password, database, server):
     """
     Create a new connection using the specified connection string, username
     and password.
     """
     super(self.__class__, self).__init__(
-      connection, username, password, database)
+      connection, username, password, database, server)
     self.connection = None
   
   def open(self):

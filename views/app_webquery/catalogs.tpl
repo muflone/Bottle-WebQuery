@@ -33,6 +33,10 @@
             <td><input type="text" name="connection" value="{{ ARGS['CONNECTION'] }}"></td>
           </tr>
           <tr>
+            <td>Server:</td>
+            <td><input type="text" name="server" value="{{ ARGS['SERVER'] }}"></td>
+          </tr>
+          <tr>
             <td>Database:</td>
             <td><input type="text" name="database" value="{{ ARGS['DATABASE'] }}"></td>
           </tr>
