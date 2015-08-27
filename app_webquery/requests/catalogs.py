@@ -33,6 +33,7 @@ class RequestCatalogs(RequestBase):
     for engine_name in self.engines.values():
       self.values['ENGINES'].append((engine_name.descriptor,
                                      engine_name.description))
+    self.values['ENGINES'].sort()
     self.values['DATA'] = None
     existing_catalog = ''
     existing_description = ''
