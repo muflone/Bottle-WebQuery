@@ -1,5 +1,8 @@
 import logging
 
+import configuration
+from app_webquery.constants import SETTINGS_FILENAME
+
 try:
   # Use the db2 native module for iSeries
   import db2
@@ -40,7 +43,10 @@ class WebQueryEngineDB2(WebQueryEngineBase):
                               'jdbc:as400://%s' % self.connection_string,
                               self.username,
                               self.password],
-                            jars='app_webquery/sql/jt400.jar',
+                              jars=configuration.get_config_string(
+                                SETTINGS_FILENAME,
+                                'GENERAL',
+                                'JT400.JAR'),
                             libs=None)
 
   def close(self):
