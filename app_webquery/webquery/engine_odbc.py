@@ -80,4 +80,39 @@ class WebQueryEngineODBCDSN(WebQueryEngineODBC):
     super(WebQueryEngineODBCDSN, self).__init__(
       'DSN=%s' % connection, username, password, None)
 
+class WebQueryEngineODBCWithDriver(WebQueryEngineODBC):
+  description = 'ODBC DSN'
+  descriptor = 'odbcdsn'
+
+  def __init__(self, connection, username, password, database):
+    """
+    Create a new connection using the specified connection string, username
+    and password.
+    """
+    super(WebQueryEngineODBCWithDriver, self).__init__(
+      'Driver=%s;%s;' % (self.driver, connection),
+      username, password, database)
+
+def WebQueryEngineODBCClassFactory(name, driver):
+  """Create a new class for ODBC connection"""
+  def __init__(self, connection, username, password, database):
+    """Late constructor for derived class"""
+    WebQueryEngineODBCWithDriver.__init__(self, connection,
+      username, password, database)
+  newclass = type(name, (WebQueryEngineODBCWithDriver, ),
+    {
+      '__init__': __init__,
+      'description': 'ODBC with driver %s' % driver,
+      'descriptor': 'odbc-driver-%s' % driver,
+      'driver': driver
+    }
+  )
+  return newclass
+
 engine_classes = [WebQueryEngineODBC, WebQueryEngineODBCDSN]
+odbc_drivers = pypyodbc.drivers()
+for driver_count in range(len(odbc_drivers)):
+  new_engine_class = WebQueryEngineODBCClassFactory(
+      'WebQueryEngineODBCWithDriver_%d' % driver_count,
+      odbc_drivers[driver_count])
+  engine_classes.append(new_engine_class)
