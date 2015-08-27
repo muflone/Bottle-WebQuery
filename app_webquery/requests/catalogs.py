@@ -22,6 +22,9 @@ class RequestCatalogs(RequestBase):
     self.args['USERNAME'] = self.params.get_utf8_item('username')
     self.args['PASSWORD'] = self.params.get_utf8_item('password')
     self.args['ENCODING'] = self.params.get_item('encoding')
+    # Avoid empty description
+    if not self.args['DESCRIPTION']:
+      self.args['DESCRIPTION'] = self.args['CATALOG']
     # Response values
     self.values = {}
     self.values['ERRORS'] = []

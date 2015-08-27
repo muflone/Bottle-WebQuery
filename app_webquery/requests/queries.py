@@ -23,6 +23,9 @@ class RequestQueries(RequestBase):
     self.args['SQL'] = self.params.get_utf8_item('sql')
     self.args['REPORT'] = self.params.get_utf8_item('report')
     self.args['PARAMETERS'] = self.params.get_utf8_item('parameters')
+    # Avoid empty description
+    if not self.args['DESCRIPTION']:
+      self.args['DESCRIPTION'] = self.args['NAME']
     # Response values
     self.values = {}
     self.values['ERRORS'] = []
