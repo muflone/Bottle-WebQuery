@@ -30,6 +30,10 @@ class RequestQueries(RequestBase):
     self.values = {}
     self.values['ERRORS'] = []
     self.values['DATA'] = None
+    self.values['REPORTS'] = (
+      ('table', 'Vertical table'),
+      ('card', 'Horizontal table'),
+    )
     existing_id = 0
     existing_catalog = ''
     existing_query = ''

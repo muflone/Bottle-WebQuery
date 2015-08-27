@@ -34,12 +34,14 @@
             <td><textarea name="sql">{{ ARGS['SQL'] }}</textarea></td>
           </tr>
           <tr>
-            <th>Report:</th>
-            <td><input type="text" name="report" value="{{ ARGS['REPORT'] }}"></td>
-          </tr>
-          <tr>
             <th>Parameters:</th>
             <td><textarea name="parameters">{{ ARGS['PARAMETERS'] }}</textarea></td>
+          </tr>
+          <tr>
+            <td>Report:</td>
+            <td><select name="report">
+% include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS['REPORT'], DATA=VALUES['REPORTS'])
+            </select></td>
           </tr>
         </tbody>
         <tfoot>
