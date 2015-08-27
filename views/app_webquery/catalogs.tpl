@@ -78,8 +78,6 @@
           <th>Name</th>
           <th>Description</th>
           <th>Engine</th>
-          <th>Connection string</th>
-          <th>Database</th>
         </tr>
       </thead>
       <tbody>
@@ -88,8 +86,6 @@
           <td><a href="?catalog={{ row[0] }}">{{ row[0] }}</a></td>
           <td>{{ row[1] }}</td>
           <td>{{ row[2] }}</td>
-          <td>{{ row[3] }}</td>
-          <td>{{ row[4] }}</td>
         </tr>
   % end
       </tbody>

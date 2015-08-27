@@ -132,7 +132,7 @@ class RequestCatalogs(RequestBase):
       self.args['ENCODING'] = existing_encoding
     # Get existing catalogs list
     self.values['FIELDS'], self.values['DATA'] = engine.get_data(
-      'SELECT name, description, engine, connstr, database '
+      'SELECT name, description, engine '
       'FROM catalogs '
       'ORDER BY name')
     engine.close()
