@@ -20,7 +20,7 @@ class WebQueryEnginePostgreSQL(WebQueryEngineBase):
     """Open the connection"""
     super(self.__class__, self).open()
     self.connection = psycopg2.connect(
-      host='%s' % self.connection_string,
+      host=self.connection_string,
       user=self.username,
       password=self.password,
       database=self.database)

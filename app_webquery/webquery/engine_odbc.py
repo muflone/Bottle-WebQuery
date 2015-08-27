@@ -20,8 +20,7 @@ class WebQueryEngineODBC(WebQueryEngineBase):
     """Open the connection"""
     super(WebQueryEngineODBC, self).open()
     self.connection = pypyodbc.connect(
-      connectString = '%s%s' % (self.connection_string, 
-        self.database if self.database else ''))
+      connectString = self.connection_string)
 
   def close(self):
     """Close the connection"""
