@@ -12,26 +12,27 @@ class WebQueryEngineODBC(WebQueryEngineBase):
     Create a new connection using the specified connection string, username
     and password.
     """
-    super(self.__class__, self).__init__(connection, username, password, database)
+    super(WebQueryEngineODBC, self).__init__(
+      connection, username, password, database)
     self.connection = None
   
   def open(self):
     """Open the connection"""
-    super(self.__class__, self).open()
+    super(WebQueryEngineODBC, self).open()
     self.connection = pypyodbc.connect(
       connectString = '%s%s' % (self.connection_string, 
-        'DBQ=%s' % self.database if self.database else ''))
+        self.database if self.database else ''))
 
   def close(self):
     """Close the connection"""
-    super(self.__class__, self).close()
+    super(WebQueryEngineODBC, self).close()
     if self.connection:
       self.connection.close()
       self.connection = None
 
   def execute(self, statement, parameters=None):
     """Execute a statement"""
-    super(self.__class__, self).execute(statement, parameters)
+    super(WebQueryEngineODBC, self).execute(statement, parameters)
     cursor = self.connection.cursor()
     if parameters is None:
       cursor.execute(statement)
@@ -41,7 +42,7 @@ class WebQueryEngineODBC(WebQueryEngineBase):
 
   def get_data(self, statement, replaces=None, parameters=None):
     """Execute a statement and returns the data"""
-    super(self.__class__, self).get_data(statement, replaces, parameters)
+    super(WebQueryEngineODBC, self).get_data(statement, replaces, parameters)
     if replaces is not None:
       statement = statement % replaces
     cursor = self.connection.cursor()
@@ -58,13 +59,13 @@ class WebQueryEngineODBC(WebQueryEngineBase):
 
   def list_tables(self):
     """List all the tables"""
-    super(self.__class__, self).list_tables()
+    super(WebQueryEngineODBC, self).list_tables()
     tables = []
     return tables
 
   def save(self):
     """Save any pending data"""
-    super(self.__class__, self).save()
+    super(WebQueryEngineODBC, self).save()
     self.connection.commit()
 
 engine_classes = (WebQueryEngineODBC, )
