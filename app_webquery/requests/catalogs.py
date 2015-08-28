@@ -106,7 +106,7 @@ class RequestCatalogs(RequestBase):
           engine.execute('INSERT INTO catalogs(name, description, '
                          'engine, connstr, server, database, '
                          'username, password, encoding) '
-                         'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (
+                         'VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', (
                          self.args['CATALOG'],
                          self.args['DESCRIPTION'],
                          self.args['ENGINE'],
