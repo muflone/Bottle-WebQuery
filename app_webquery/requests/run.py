@@ -89,20 +89,25 @@ class RequestRun(RequestBase):
           param_name, param_config = parameter.split('=', 1)
           # Parameter configuration
           if param_config.startswith('list:'):
+            # List of values
             param_values = param_config[5:].split(',')
           elif param_config.startswith('range:'):
+            # Range between two values
             param_value1, param_value2 = param_config[6:].split('-', 1)
             param_values = range(
               int(param_value1), int(param_value2) + 1)
           elif param_config.startswith('sql:'):
+            # Result of a SQL statement
             existing_fields, existing_data = engine.get_data(
               param_config[4:])
             param_values = []
             for param_value1 in existing_data:
               param_values.append(param_value1[0])
           elif param_config.startswith('text:'):
+            # Input text
             param_values = ''
           else:
+            # Not implemented parameter type
             raise Exception('Not implemented')
           self.parameters[param_name] = param_values
         # Check all the parameters if they were configured
