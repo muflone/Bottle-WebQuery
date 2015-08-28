@@ -9,7 +9,11 @@
             <th>{{PARAM_NAME }}</th>
     % if type(PARAMETERS[PARAM_NAME]) is list:
             <td><select name="{{ PARAM_NAME }}">
-      % include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS[PARAM_NAME], DATA=[(value, value) for value in PARAMETERS[PARAM_NAME]])
+      % if type(PARAMETERS[PARAM_NAME][0]) is list:
+        % include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS[PARAM_NAME], DATA=PARAMETERS[PARAM_NAME])
+      % else:
+        % include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS[PARAM_NAME], DATA=[(value, value) for value in PARAMETERS[PARAM_NAME]])
+      % end
             </select></td>
     % elif type(PARAMETERS[PARAM_NAME]) is str:
             <td><input type="text" name="{{ PARAM_NAME }}" value="{{ ARGS[PARAM_NAME] }}"></td>

@@ -106,6 +106,11 @@ class RequestRun(RequestBase):
           elif param_config.startswith('text:'):
             # Input text
             param_values = ''
+          elif param_config.startswith('values:'):
+            # List of key=description values
+            param_values = []
+            for param_value1 in param_config[7:].split(','):
+              param_values.append(param_value1.split('=', 1))
           else:
             # Not implemented parameter type
             raise Exception('Not implemented')
