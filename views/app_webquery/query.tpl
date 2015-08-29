@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="static/css/codemirror.css">
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/lib/codemirror.css" />
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/addon/hint/show-hint.css" />
+    <link type="text/css" rel="stylesheet" href="static/css/codemirror-theme-custom.css">
     <script src="static/codemirror-5.6/lib/codemirror.js"></script>
     <script src="static/codemirror-5.6/addon/hint/show-hint.js"></script>
     <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
@@ -22,6 +23,7 @@
         extraKeys: {
           "Ctrl-Space": "autocomplete",
         },
+        theme: "custom",
         lineWrapping: false,
       });
     };
