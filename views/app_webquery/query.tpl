@@ -9,6 +9,7 @@
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/lib/codemirror.css" />
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/addon/hint/show-hint.css" />
     <link type="text/css" rel="stylesheet" href="static/css/codemirror-theme-custom.css">
+    <link type="text/css" rel="stylesheet" href="static/css/codemirror-fullscreen-full-width.css">
     <script src="static/codemirror-5.6/lib/codemirror.js"></script>
     <script src="static/codemirror-5.6/addon/hint/show-hint.js"></script>
     <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
@@ -17,6 +18,7 @@
     <script src="static/codemirror-5.6/addon/selection/active-line.js"></script>
     <script src="static/codemirror-5.6/addon/edit/closebrackets.js"></script>
     <script src="static/codemirror-5.6/addon/edit/matchbrackets.js"></script>
+    <script src="static/codemirror-5.6/addon/display/fullscreen.js"></script>
   </head>
 
   <body>
@@ -26,6 +28,12 @@
         mode: 'text/x-sql-custom',
         extraKeys: {
           "Ctrl-Space": "autocomplete",
+          "F11": function(cm) {
+            cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+          },
+          "Esc": function(cm) {
+            if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+          },
         },
         theme: "custom",
         lineWrapping: false,
