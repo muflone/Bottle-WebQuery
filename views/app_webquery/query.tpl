@@ -7,7 +7,10 @@
     <link type="text/css" rel="stylesheet" href="static/css/table.css">
     <link type="text/css" rel="stylesheet" href="static/css/codemirror.css">
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/lib/codemirror.css" />
+    <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/addon/hint/show-hint.css" />
     <script src="static/codemirror-5.6/lib/codemirror.js"></script>
+    <script src="static/codemirror-5.6/addon/hint/show-hint.js"></script>
+    <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
     <script src="static/codemirror-5.6/mode/sql/sql.js"></script>
   </head>
 
@@ -16,6 +19,9 @@
     window.onload = function() {
       window.editor = CodeMirror.fromTextArea(document.getElementById('codemirror'), {
         mode: 'text/x-sql',
+        extraKeys: {
+          "Ctrl-Space": "autocomplete",
+        },
         lineWrapping: false,
       });
     };
