@@ -13,6 +13,7 @@
     <script src="static/codemirror-5.6/addon/hint/show-hint.js"></script>
     <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
     <script src="static/js/codemirror-sql-custom.js"></script>
+    <script src="static/codemirror-5.6/addon/display/placeholder.js"></script>
   </head>
 
   <body>
@@ -41,7 +42,7 @@
           </tr>
           <tr>
             <th>SQL statement:</th>
-            <td><textarea name="sql" id="codemirror">{{ ARGS['SQL'] }}</textarea></td>
+            <td><textarea name="sql" id="codemirror" placeholder="< SQL CODE >">{{ ARGS['SQL'] }}</textarea></td>
           </tr>
           <tr>
             <th>Available tables:</th>
