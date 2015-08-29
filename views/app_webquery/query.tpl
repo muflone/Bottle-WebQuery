@@ -11,14 +11,14 @@
     <script src="static/codemirror-5.6/lib/codemirror.js"></script>
     <script src="static/codemirror-5.6/addon/hint/show-hint.js"></script>
     <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
-    <script src="static/codemirror-5.6/mode/sql/sql.js"></script>
+    <script src="static/js/codemirror-sql-custom.js"></script>
   </head>
 
   <body>
     <script>
     window.onload = function() {
       window.editor = CodeMirror.fromTextArea(document.getElementById('codemirror'), {
-        mode: 'text/x-sql',
+        mode: 'text/x-sql-custom',
         extraKeys: {
           "Ctrl-Space": "autocomplete",
         },
