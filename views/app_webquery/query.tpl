@@ -16,6 +16,7 @@
     <script src="static/codemirror-5.6/addon/display/placeholder.js"></script>
     <script src="static/codemirror-5.6/addon/selection/active-line.js"></script>
     <script src="static/codemirror-5.6/addon/edit/closebrackets.js"></script>
+    <script src="static/codemirror-5.6/addon/edit/matchbrackets.js"></script>
   </head>
 
   <body>
@@ -31,6 +32,7 @@
         lineNumbers: true,
         styleActiveLine: true,
         autoCloseBrackets: true,
+        matchBrackets : true,
       });
     };
     </script>

@@ -40,3 +40,5 @@ THE SOFTWARE.
 .cm-s-custom span.cm-error { color: #f00; }
 
 .cm-s-custom .CodeMirror-activeline-background { background: #e8f2ff; }
+
+.cm-s-custom .CodeMirror-matchingbracket { font-weight: bold; color: red!important;}
