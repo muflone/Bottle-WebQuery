@@ -14,6 +14,7 @@
     <script src="static/codemirror-5.6/addon/hint/sql-hint.js"></script>
     <script src="static/js/codemirror-sql-custom.js"></script>
     <script src="static/codemirror-5.6/addon/display/placeholder.js"></script>
+    <script src="static/codemirror-5.6/addon/selection/active-line.js"></script>
   </head>
 
   <body>
@@ -26,6 +27,7 @@
         },
         theme: "custom",
         lineWrapping: false,
+        styleActiveLine: true,
       });
     };
     </script>

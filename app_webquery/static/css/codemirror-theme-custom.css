@@ -38,3 +38,5 @@ THE SOFTWARE.
 .cm-s-custom span.cm-tag { color: #3F7F7F; }
 .cm-s-custom span.cm-attribute { color: #7F007F; }
 .cm-s-custom span.cm-error { color: #f00; }
+
+.cm-s-custom .CodeMirror-activeline-background { background: #e8f2ff; }
