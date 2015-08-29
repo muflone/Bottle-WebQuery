@@ -5,10 +5,13 @@
     <link type="text/css" rel="stylesheet" href="static/css/styles.css">
     <link type="text/css" rel="stylesheet" href="static/css/parameters.css">
     <link type="text/css" rel="stylesheet" href="static/css/table.css">
+% include('%s/codemirror.inc' % MODULE, INCLUDE='stylesheets')
+% include('%s/codemirror.inc' % MODULE, INCLUDE='scripts')
   </head>
 
   <body>
 % include('%s/div_error_messages.inc' % MODULE, ERRORS=VALUES['ERRORS'])
+% include('%s/codemirror.inc' % MODULE, INCLUDE='body')
     <!-- Begin of request form -->
     <form method="get" accept-charset="UTF-8">
       <input type="hidden" name="uuid" value="{{ ARGS['UUID'] }}">
@@ -31,7 +34,7 @@
           </tr>
           <tr>
             <th>SQL statement:</th>
-            <td><textarea name="sql">{{ ARGS['SQL'] }}</textarea></td>
+            <td><textarea name="sql" id="codemirror" placeholder="< SQL CODE >">{{ ARGS['SQL'] }}</textarea></td>
           </tr>
           <tr>
             <th>Parameters:</th>
