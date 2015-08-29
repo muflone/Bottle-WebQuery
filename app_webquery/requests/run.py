@@ -27,6 +27,7 @@ class RequestRun(RequestBase):
     self.values['DATA'] = None
     # Parameters
     self.parameters = OrderedDict()
+    self.extra_parameters = {}
     engine = self.open_settings_db()
     # Get query information
     existing_fields, existing_data = engine.get_data(
@@ -111,15 +112,49 @@ class RequestRun(RequestBase):
             param_values = []
             for param_value1 in param_config[7:].split(','):
               param_values.append(param_value1.split('=', 1))
+          elif param_config.startswith('parameters:'):
+            param_values = []
+            for param_value1 in param_config[11:].split(','):
+              param_values.append(param_value1.split('=', 1)[0])
           else:
             # Not implemented parameter type
             raise Exception('Not implemented')
           self.parameters[param_name] = param_values
+        # Check all the parameters for parameters type values
+        for parameter in list_parameters:
+          param_name, param_config = parameter.split('=', 1)
+          # param_name is the parameters: name
+          if param_config.startswith('parameters:'):
+            # A parameter of type parameters has the following syntax:
+            # NAME=parameters:PARAMVALUE1=FIELD1=VALUE1,PARAMVALUE2=FIELD1=VALUE1
+            self.args[param_name] = self.params.get_item(param_name, None)
+            # self.args[param_name] is the selected PARAMVALUE
+            param_values = param_config[11:].split(',')
+            for param_values in param_values:
+              param_name2, param_values = param_values.split('=', 1)
+              # param_name2 is each PARAMVALUE
+              # param_values is the FIELD=VALUE pairs list
+              param_values = param_values.split(';')
+              for parameter in param_values:
+                # parameter is each FIELD=value pair
+                param_value1, param_value2 = parameter.split('=', 1)
+                # Check if the parameters parameter was set
+                if self.args[param_name] == param_name2:
+                  self.args[param_value1] = param_value2
+                else:
+                  self.args[param_value1] = None
+                self.extra_parameters[param_value1] = self.args[param_value1]
+              # Exit after the current PARAMVALUE was found
+              if self.args[param_name] == param_name2:
+                break
+            break
         # Check all the parameters if they were configured
-        for parameter in self.parameters.keys():
+        for parameter in self.parameters.keys() + self.extra_parameters.keys():
           self.args[parameter] = self.params.get_item(parameter, None)
           if self.args[parameter] is not None:
-            self.args[parameter].replace('\'', '\'\'')
+            self.args[parameter] = self.args[parameter].replace('\'', '\'\'')
+          elif self.extra_parameters.get(parameter, None) is not None:
+            self.args[parameter] = self.extra_parameters[parameter].replace('\'', '\'\'')
           else:
             self.values['ERRORS'].append(
               'Parameter %s was not provided' % parameter)
