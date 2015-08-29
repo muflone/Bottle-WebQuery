@@ -149,15 +149,19 @@ class RequestRun(RequestBase):
                 break
             break
         # Check all the parameters if they were configured
-        for parameter in self.parameters.keys() + self.extra_parameters.keys():
+        for parameter in self.parameters.keys():
           self.args[parameter] = self.params.get_item(parameter, None)
           if self.args[parameter] is not None:
-            self.args[parameter] = self.args[parameter].replace('\'', '\'\'')
-          elif self.extra_parameters.get(parameter, None) is not None:
-            self.args[parameter] = self.extra_parameters[parameter].replace('\'', '\'\'')
+            self.args[parameter] = self.args[parameter].replace(
+              '\'', '\'\'')
           else:
             self.values['ERRORS'].append(
               'Parameter %s was not provided' % parameter)
+        # Fill parameters with extra parameters
+        for parameter in self.extra_parameters.keys():
+          if self.extra_parameters.get(parameter, None) is not None:
+            self.args[parameter] = self.extra_parameters[parameter].replace(
+              '\'', '\'\'')
     if engine:
       if not self.values['ERRORS']:
         # Get the data from the query
