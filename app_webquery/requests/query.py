@@ -12,8 +12,7 @@ class RequestQuery(RequestBase):
     # Request values
     self.args = {}
     self.args['CONFIRM'] = self.params.get_item('confirm')
-    self.args['SQL'] = self.params.get_utf8_item('sql').replace(
-      '\r\n', ' ').replace('\n', ' ').replace('\r', ' ')
+    self.args['SQL'] = self.params.get_utf8_item('sql')
     self.args['CATALOG'] = self.params.get_utf8_item('catalog')
     # Response values
     self.values = {}
@@ -66,8 +65,9 @@ class RequestQuery(RequestBase):
       if engine:
         self.values['TABLES'] = [(t, t) for t in engine.list_tables()]
         self.values['FIELDS'], self.values['DATA'] = engine.get_data(
-          self.args['SQL'].encode('utf-8')) \
-          if len(self.args['SQL']) > 0 else ([], [])
+          self.args['SQL'].encode('utf-8').replace(
+          '\r\n', ' ').replace('\n', ' ').replace('\r', ' ')) if len(
+          self.args['SQL']) > 0 else ([], [])
         self.values['ENCODING'] = catalog_encoding
         engine.close()
     configuration.set_locale(None)
