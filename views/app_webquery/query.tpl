@@ -5,9 +5,21 @@
     <link type="text/css" rel="stylesheet" href="static/css/styles.css">
     <link type="text/css" rel="stylesheet" href="static/css/parameters.css">
     <link type="text/css" rel="stylesheet" href="static/css/table.css">
+    <link type="text/css" rel="stylesheet" href="static/css/codemirror.css">
+    <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/lib/codemirror.css" />
+    <script src="static/codemirror-5.6/lib/codemirror.js"></script>
+    <script src="static/codemirror-5.6/mode/sql/sql.js"></script>
   </head>
 
   <body>
+    <script>
+    window.onload = function() {
+      window.editor = CodeMirror.fromTextArea(document.getElementById('codemirror'), {
+        mode: 'text/x-sql',
+        lineWrapping: false,
+      });
+    };
+    </script>
     <!-- Begin of request form -->
     <form method="get">
       <table id="parameters">
@@ -21,7 +33,7 @@
           </tr>
           <tr>
             <th>SQL statement:</th>
-            <td><textarea name="sql">{{ ARGS['SQL'] }}</textarea></td>
+            <td><textarea name="sql" id="codemirror">{{ ARGS['SQL'] }}</textarea></td>
           </tr>
           <tr>
             <th>Available tables:</th>
