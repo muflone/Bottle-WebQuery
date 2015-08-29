@@ -27,6 +27,7 @@
         },
         theme: "custom",
         lineWrapping: false,
+        lineNumbers: true,
         styleActiveLine: true,
       });
     };
