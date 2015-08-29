@@ -15,6 +15,7 @@
     <script src="static/js/codemirror-sql-custom.js"></script>
     <script src="static/codemirror-5.6/addon/display/placeholder.js"></script>
     <script src="static/codemirror-5.6/addon/selection/active-line.js"></script>
+    <script src="static/codemirror-5.6/addon/edit/closebrackets.js"></script>
   </head>
 
   <body>
@@ -29,6 +30,7 @@
         lineWrapping: false,
         lineNumbers: true,
         styleActiveLine: true,
+        autoCloseBrackets: true,
       });
     };
     </script>
