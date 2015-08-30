@@ -21,6 +21,7 @@ class RequestQueries(RequestBase):
     self.args['NAME'] = self.params.get_utf8_item('name')
     self.args['DESCRIPTION'] = self.params.get_utf8_item('description')
     self.args['SQL'] = self.params.get_utf8_item('sql')
+    self.args['FOLDER'] = self.params.get_utf8_item('folder')
     self.args['REPORT'] = self.params.get_utf8_item('report')
     self.args['PARAMETERS'] = self.params.get_utf8_item('parameters')
     # Avoid empty description
@@ -39,6 +40,7 @@ class RequestQueries(RequestBase):
     existing_query = ''
     existing_description = ''
     existing_sql = ''
+    existing_folder = ''
     existing_report = ''
     existing_parameters = ''
     
@@ -46,8 +48,8 @@ class RequestQueries(RequestBase):
     # Get existing catalog details
     if self.args['UUID']:
       existing_fields, existing_data = engine.get_data(
-          'SELECT uuid, catalog, name, description, sql, report, '
-          'parameters '
+          'SELECT uuid, catalog, name, description, sql, folder, '
+          'report, parameters '
           'FROM queries '
           'WHERE uuid=?',
           None,
@@ -64,7 +66,7 @@ class RequestQueries(RequestBase):
           return 'REDIRECT:queries'
         else:
           existing_id, existing_catalog, existing_query, \
-            existing_description, existing_sql, \
+            existing_description, existing_sql, existing_folder, \
             existing_report, existing_parameters = existing_data[0]
     # Check the requested arguments for errors
     if self.args['CONFIRM']:
@@ -82,12 +84,13 @@ class RequestQueries(RequestBase):
           logging.debug('Updating query: %s' % self.args['UUID'])
           engine.execute('UPDATE queries '
                          'SET catalog=?, name=?, description=?, sql=?, '
-                         'report=?, parameters=? '
+                         'folder=?, report=?, parameters=? '
                          'WHERE uuid=?', (
                            self.args['CATALOG'],
                            self.args['NAME'],
                            self.args['DESCRIPTION'],
                            self.args['SQL'],
+                           self.args['FOLDER'],
                            self.args['REPORT'],
                            self.args['PARAMETERS'],
                            self.args['UUID']))
@@ -96,13 +99,15 @@ class RequestQueries(RequestBase):
           # Insert new query
           logging.debug('Inserting query: %s' % self.args['NAME'])
           engine.execute('INSERT INTO queries(uuid, catalog, name, '
-                         'description, sql, report, parameters) '
+                         'description, sql, folder, report, '
+                         'parameters) '
                          'VALUES(?, ?, ?, ?, ?, ?, ?)', (
                          str(uuid.uuid4()),
                          self.args['CATALOG'],
                          self.args['NAME'],
                          self.args['DESCRIPTION'],
                          self.args['SQL'],
+                         self.args['FOLDER'],
                          self.args['REPORT'],
                          self.args['PARAMETERS']))
           logging.info('Inserted catalog: %s' % self.args['NAME'])
@@ -115,16 +120,22 @@ class RequestQueries(RequestBase):
       self.args['NAME'] = existing_query
       self.args['DESCRIPTION'] = existing_description
       self.args['SQL'] = existing_sql
+      self.args['FOLDER'] = existing_folder
       self.args['REPORT'] = existing_report
       self.args['PARAMETERS'] = existing_parameters
     # Get existing catalogs list
     self.values['FIELDS'], self.values['CATALOGS'] = engine.get_data(
       'SELECT name, description FROM catalogs '
       'ORDER BY name')
+    # Get existing folders list
+    self.values['FIELDS'], self.values['FOLDERS'] = engine.get_data(
+      'SELECT name, description FROM folders '
+      'ORDER BY name')
     # Get existing queries list
     self.values['FIELDS'], self.values['DATA'] = engine.get_data(
-      'SELECT uuid, name, description, catalog, report FROM queries '
-      'ORDER BY catalog, name, uuid')
+      'SELECT uuid, folder, name, description, catalog, report '
+      'FROM queries '
+      'ORDER BY folder, catalog, name, uuid')
     engine.close()
     configuration.set_locale(None)
     return self.get_template('queries.tpl',

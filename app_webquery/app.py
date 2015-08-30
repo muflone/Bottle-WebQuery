@@ -42,6 +42,12 @@ class BottleApplication(bottle.Bottle):
       """Serve the page"""
       return serve_object_page(RequestCatalogs())
 
+    @self.route('/folders')
+    @self.post('/folders')
+    def serve():
+      """Serve the page"""
+      return serve_object_page(RequestFolders())
+
     @self.route('/run')
     @self.post('/run')
     def serve():

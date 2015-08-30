@@ -19,6 +19,12 @@
         <caption>Query configuration</caption>
         <tbody>
           <tr>
+            <th>Folder:</th>
+            <td><select name="folder">
+% include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS['FOLDER'], DATA=VALUES['FOLDERS'])
+            </select></td>
+          </tr>
+          <tr>
             <th>Query name:</th>
             <td><input type="text" name="name" value="{{ ARGS['NAME'] }}"></td>
           </tr>
@@ -41,7 +47,7 @@
             <td><textarea name="parameters">{{ ARGS['PARAMETERS'] }}</textarea></td>
           </tr>
           <tr>
-            <td>Report:</td>
+            <th>Report:</th>
             <td><select name="report">
 % include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=1, SELECTED=ARGS['REPORT'], DATA=VALUES['REPORTS'])
             </select></td>
@@ -69,6 +75,7 @@
       <caption>Existing queries</caption>
       <thead>
         <tr>
+          <th>Folder</th>
           <th>Name</th>
           <th>Description</th>
           <th>Catalog</th>
@@ -78,11 +85,12 @@
       <tbody>
   % for row in VALUES['DATA']:
         <tr>
+          <td>{{ row[1].encode('utf-8') }}</td>
           <td><a href="run?uuid={{ row[0] }}"><img src="static/images/run.png"></a>
-            <a href="?uuid={{ row[0] }}">{{ row[1] }}</a></td>
-          <td>{{ row[2].encode('utf-8') }}</td>
+            <a href="?uuid={{ row[0] }}">{{ row[2] }}</a></td>
           <td>{{ row[3].encode('utf-8') }}</td>
           <td>{{ row[4].encode('utf-8') }}</td>
+          <td>{{ row[5].encode('utf-8') }}</td>
         </tr>
   % end
       </tbody>
