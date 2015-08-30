@@ -1,5 +1,6 @@
 import bottle
 import StringIO
+import json
 
 def bridge_response(response):
   """Handle both responses and redirects"""
@@ -16,7 +17,7 @@ def bridge_response(response):
     return response
   elif type(response) is list:
     # Direct list response
-    return response
+    return json.dumps(response)
   elif response.startswith('REDIRECT:'):
     # Redirect to another page
     bottle.redirect(response[9:])
