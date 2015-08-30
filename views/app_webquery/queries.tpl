@@ -7,6 +7,40 @@
     <link type="text/css" rel="stylesheet" href="static/css/table.css">
 % include('%s/codemirror.inc' % MODULE, INCLUDE='stylesheets')
 % include('%s/codemirror.inc' % MODULE, INCLUDE='scripts')
+% include('%s/jquery.inc' % MODULE, INCLUDE='scripts')
+% include('%s/jquery.inc' % MODULE, INCLUDE='ui')
+% include('%s/fancytree.inc' % MODULE, INCLUDE='stylesheets')
+% include('%s/fancytree.inc' % MODULE, INCLUDE='scripts')
+% include('%s/fancytree.inc' % MODULE, INCLUDE='scripts-table')
+    <!-- Initialize the tree when the page is loaded -->
+    <script type="text/javascript">
+      $(function(){
+        // Create the tree inside the <table id="treetable"> element
+        $("#treetable").fancytree({
+          extensions: ["table"],
+          table: {
+            indentation: 0,       // indent 0px per node level
+            nodeColumnIdx: 1,     // render the node title into the 2nd column
+            checkboxColumnIdx: 1  // render the checkboxes into the 1st column
+          }, // End of table field
+          source: {
+            url: "?format=json"
+          }, // End of source field
+          checkbox: false,
+          clickFolderMode: 4, // 1:activate, 2:expand, 3:activate and expand, 4:activate (dblclick expands)
+          renderColumns: function(event, data) {
+            var node = data.node;
+            var $tdList = $(node.tr).find(">td");
+            if (!node.isFolder()) {
+              $tdList.eq(0).html('<a href="run?uuid=' + node.key + '"><img src="static/images/run.png"></a>');
+              $tdList.eq(3).text(node.data.catalog);
+              $tdList.eq(4).text(node.data.report);
+            }
+            $tdList.eq(2).text(node.tooltip);
+          } // End of renderColumns field
+        }); // End of fancytree definition
+      }); // End of document function
+    </script>
   </head>
 
   <body>
@@ -71,11 +105,18 @@
 % if VALUES['DATA']:
     <hr />
     <!-- Begin of response data -->
-    <table class="data">
+    <table id="treetable" class="data">
+      <colgroup>
+        <col width="36px"></col>
+        <col></col>
+        <col></col>
+        <col></col>
+        <col></col>
+      </colgroup>
       <caption>Existing queries</caption>
       <thead>
         <tr>
-          <th>Folder</th>
+          <th>Run</th>
           <th>Name</th>
           <th>Description</th>
           <th>Catalog</th>
@@ -83,19 +124,16 @@
         </tr>
       </thead>
       <tbody>
-  % for row in VALUES['DATA']:
         <tr>
-          <td>{{ row[1].encode('utf-8') }}</td>
-          <td><a href="run?uuid={{ row[0] }}"><img src="static/images/run.png"></a>
-            <a href="?uuid={{ row[0] }}">{{ row[2] }}</a></td>
-          <td>{{ row[3].encode('utf-8') }}</td>
-          <td>{{ row[4].encode('utf-8') }}</td>
-          <td>{{ row[5].encode('utf-8') }}</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
-  % end
       </tbody>
     </table>
-    <!-- End of response data -->
 % end
+    <!-- End of response data -->
   </body>
 </html>
