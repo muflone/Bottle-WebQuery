@@ -64,7 +64,7 @@ class RequestFolders(RequestBase):
                          'SET description=?, visible=? '
                          'WHERE name=?', (
                            self.args['DESCRIPTION'],
-                           self.args['VISIBLE'],
+                           1 if self.args['VISIBLE'] else 0,
                            self.args['FOLDER']))
           logging.info('Updated folder: %s' % self.args['FOLDER'])
         else:
@@ -75,7 +75,7 @@ class RequestFolders(RequestBase):
                          'VALUES(?, ?, ?)', (
                          self.args['FOLDER'],
                          self.args['DESCRIPTION'],
-                         self.args['VISIBLE']))
+                         1 if self.args['VISIBLE'] else 0))
           logging.info('Inserted folder: %s' % self.args['FOLDER'])
         engine.save()
         # Reload empty page afer save
