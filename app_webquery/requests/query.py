@@ -14,6 +14,7 @@ class RequestQuery(RequestBase):
     self.args['CONFIRM'] = self.params.get_item('confirm')
     self.args['SQL'] = self.params.get_utf8_item('sql')
     self.args['CATALOG'] = self.params.get_utf8_item('catalog')
+    self.args['LIST_TABLES'] = self.params.get_item('list_tables')
     # Response values
     self.values = {}
     self.values['ERRORS'] = []
@@ -63,7 +64,10 @@ class RequestQuery(RequestBase):
         catalog_database,
         catalog_server)
       if engine:
-        self.values['TABLES'] = [(t, t) for t in engine.list_tables()]
+        # List the catalog tables if available and requested
+        self.values['TABLES'] = [(t, t) for t in engine.list_tables()] \
+          if self.args['LIST_TABLES'] else ()
+        # Get fields and data if SQL argument was provided
         self.values['FIELDS'], self.values['DATA'] = engine.get_data(
           self.args['SQL'].encode('utf-8').replace(
           '\r\n', ' ').replace('\n', ' ').replace('\r', ' ')) if len(

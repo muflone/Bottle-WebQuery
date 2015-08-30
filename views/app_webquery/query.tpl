@@ -28,9 +28,14 @@
           </tr>
           <tr>
             <th>Available tables:</th>
-            <td><select name="tables" size="10">
+            <td>
+              <div>\\
+% include('%s/input_check.inc' % MODULE, NAME='list_tables', VALUE='1', SELECTED=ARGS['LIST_TABLES'], TITLE='List the available tables from the catalog')
+</div>
+              <select name="tables" size="10">
 % include('%s/select_options_from_data.inc' % MODULE, DATA_ROWS=False, FIELD_ID=0, FIELD_VALUE=0, SELECTED=None, DATA=VALUES['TABLES'])
-            </select></td>
+              </select>
+            </td>
           </tr>
         </tbody>
         <tfoot>
