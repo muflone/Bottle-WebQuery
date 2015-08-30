@@ -84,7 +84,7 @@ class RequestFolders(RequestBase):
       # Use existing details
       self.args['DESCRIPTION'] = existing_description
       self.args['VISIBLE'] = existing_visible
-    # Get existing catalogs list
+    # Get existing folders list
     self.values['FIELDS'], self.values['DATA'] = engine.get_data(
       'SELECT name, description, visible '
       'FROM folders '
