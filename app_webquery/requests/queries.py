@@ -104,7 +104,7 @@ class RequestQueries(RequestBase):
             engine.execute('INSERT INTO queries(uuid, catalog, name, '
                            'description, sql, folder, report, '
                            'parameters) '
-                           'VALUES(?, ?, ?, ?, ?, ?, ?)', (
+                           'VALUES(?, ?, ?, ?, ?, ?, ?, ?)', (
                            str(uuid.uuid4()),
                            self.args['CATALOG'],
                            self.args['NAME'],
