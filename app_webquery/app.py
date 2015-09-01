@@ -48,6 +48,12 @@ class BottleApplication(bottle.Bottle):
       """Serve the page"""
       return serve_object_page(RequestFolders())
 
+    @self.route('/parameters')
+    @self.post('/parameters')
+    def serve():
+      """Serve the page"""
+      return serve_object_page(RequestParameters())
+
     @self.route('/run')
     @self.post('/run')
     def serve():
