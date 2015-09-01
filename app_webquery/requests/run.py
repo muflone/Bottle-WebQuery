@@ -89,6 +89,18 @@ class RequestRun(RequestBase):
           '\r\n', '\n').replace('\r', '\n').split('\n')
         for parameter in list_parameters:
           param_name, param_config = parameter.split('=', 1)
+          # Get the parameter from the parameters table if needed
+          if param_config.startswith('parameter:'):
+            existing_fields, existing_data = engine_settings.get_data(
+              statement='SELECT content FROM parameters WHERE name=?',
+              replaces=None,
+              parameters=(param_config[10:], ))
+            if existing_data:
+              param_config = existing_data[0][0]
+              list_parameters.remove(parameter)
+              list_parameters.append('%s=%s' % (param_name, param_config))
+        for parameter in list_parameters:
+          param_name, param_config = parameter.split('=', 1)
           # Parameter configuration
           if param_config.startswith('list:'):
             # List of values
