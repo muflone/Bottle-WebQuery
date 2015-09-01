@@ -5,6 +5,7 @@
     <link type="text/css" rel="stylesheet" href="static/css/styles.css">
     <link type="text/css" rel="stylesheet" href="static/css/parameters.css">
     <link type="text/css" rel="stylesheet" href="static/css/table.css">
+% include('%s/requires.inc' % MODULE)
   </head>
 
   <body>

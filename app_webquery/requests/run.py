@@ -25,6 +25,7 @@ class RequestRun(RequestBase):
     self.values['ERRORS'] = []
     self.values['FIELDS'] = None
     self.values['DATA'] = None
+    self.values['REQUIRES'] = []
     # Parameters
     self.parameters = OrderedDict()
     self.extra_parameters = {}
