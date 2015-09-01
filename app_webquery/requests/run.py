@@ -1,4 +1,5 @@
 from collections import OrderedDict
+import datetime
 
 import configuration
 from .base import RequestBase
@@ -108,6 +109,13 @@ class RequestRun(RequestBase):
           elif param_config.startswith('text:'):
             # Input text
             param_values = ''
+          elif param_config.startswith('date:'):
+            # Date input text
+            param_values = datetime.date.today()
+            if 'jquery' not in self.values['REQUIRES']:
+              self.values['REQUIRES'].append('jquery')
+            if 'jquery-ui' not in self.values['REQUIRES']:
+              self.values['REQUIRES'].append('jquery-ui')
           elif param_config.startswith('values:'):
             # List of key=description values
             param_values = []
@@ -174,4 +182,5 @@ class RequestRun(RequestBase):
       ARGS=self.args,
       VALUES=self.values,
       PARAMETERS=self.parameters,
-      printable_text_for_encoding=self.printable_text_for_encoding)
+      printable_text_for_encoding=self.printable_text_for_encoding,
+      datetime=datetime)
