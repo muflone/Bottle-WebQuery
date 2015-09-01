@@ -18,9 +18,9 @@
     % elif type(PARAMETERS[PARAM_NAME]) is str:
             <td><input type="text" name="{{ PARAM_NAME }}" value="{{ ARGS[PARAM_NAME] }}"></td>
     % elif type(PARAMETERS[PARAM_NAME]) is datetime.date:
-            <td><input type="text" name="{{ PARAM_NAME }}" value="{{ ARGS[PARAM_NAME] }}" id="{{ PARAM_NAME }}"></td>
+            <td><input type="text" name="{{ PARAM_NAME }}" value="{{ ARGS[PARAM_NAME] }}" id="{{ PARAM_NAME.replace(' ', '_') }}"></td>
             <script>
-              $( "#{{ PARAM_NAME }}" ).datepicker({
+              $( "#{{ PARAM_NAME.replace(' ', '_') }}" ).datepicker({
                 dateFormat: "yy-mm-dd",
               });
             </script>
