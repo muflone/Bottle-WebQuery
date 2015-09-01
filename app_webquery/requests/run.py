@@ -30,9 +30,10 @@ class RequestRun(RequestBase):
     # Parameters
     self.parameters = OrderedDict()
     self.extra_parameters = {}
-    engine = self.open_settings_db()
+    engine = None
+    engine_settings = self.open_settings_db()
     # Get query information
-    existing_fields, existing_data = engine.get_data(
+    existing_fields, existing_data = engine_settings.get_data(
         'SELECT catalog, description, sql, report, parameters '
         'FROM queries '
         'WHERE uuid=?',
@@ -49,7 +50,7 @@ class RequestRun(RequestBase):
       self.values['ERRORS'].append('Query not found')
     if not self.values['ERRORS']:
         # Get the catalog information
-        existing_fields, existing_data = engine.get_data(
+        existing_fields, existing_data = engine_settings.get_data(
           'SELECT engine, connstr, server, database, username, '
           'password, encoding '
           'FROM catalogs '
@@ -72,8 +73,6 @@ class RequestRun(RequestBase):
             password=self.values['PASSWORD'])
         else:
           self.values['ERRORS'].append('Catalog not found')
-    engine.close()
-    engine = None
     if not self.values['ERRORS']:
       # Open catalog database
       engine = self.open_db_from_engine_type(
@@ -177,6 +176,8 @@ class RequestRun(RequestBase):
         self.values['FIELDS'], self.values['DATA'] = engine.get_data(
           self.values['SQL'], self.args, None)
       engine.close()
+    engine_settings.close()
+    engine_settings = None
     configuration.set_locale(None)
     return self.get_template('reports/%s.tpl' % self.values['REPORT'],
       ARGS=self.args,
