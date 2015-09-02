@@ -97,8 +97,10 @@ class RequestRun(RequestBase):
               parameters=(param_config[10:], ))
             if existing_data:
               param_config = existing_data[0][0]
+              list_parameters.insert(
+                list_parameters.index(parameter),
+                '%s=%s' % (param_name, param_config))
               list_parameters.remove(parameter)
-              list_parameters.append('%s=%s' % (param_name, param_config))
         for parameter in list_parameters:
           param_name, param_config = parameter.split('=', 1)
           # Parameter configuration
