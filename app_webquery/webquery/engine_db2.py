@@ -70,6 +70,7 @@ class WebQueryEngineDB2(WebQueryEngineBase):
     cursor = self.connection.cursor()
     if replaces is not None:
       statement = statement % replaces
+    statement = str(statement)
     if parameters is None:
       cursor.execute(statement)
     else:
