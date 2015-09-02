@@ -140,7 +140,8 @@ class RequestRun(RequestBase):
               param_values.append(param_value1.split('=', 1)[0])
           else:
             # Not implemented parameter type
-            raise Exception('Not implemented')
+            raise Exception('Not implemented parameter type: %s' % 
+               param_config)
           self.parameters[param_name] = param_values
         # Check all the parameters for parameters type values
         for parameter in list_parameters:
