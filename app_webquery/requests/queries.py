@@ -35,6 +35,7 @@ class RequestQueries(RequestBase):
     self.values['REPORTS'] = (
       ('table', 'Vertical table'),
       ('card', 'Horizontal table'),
+      ('once1', 'Vertical table which shows only once the first element'),
     )
     existing_id = 0
     existing_catalog = ''
