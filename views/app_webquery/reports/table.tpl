@@ -25,7 +25,7 @@
 % for row in VALUES['DATA']:
         <tr>
     % for column in row:
-          <td>{{ printable_text_for_encoding(column, VALUES['ENCODING']) }}</td>
+          <td>{{ !printable_text_for_encoding(column, VALUES['ENCODING']) }}</td>
     % end
         </tr>
   % end

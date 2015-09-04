@@ -19,7 +19,7 @@
     % for column in range(len(VALUES['FIELDS'])):
         <tr>
           <th>{{ VALUES['FIELDS'][column] }}</th>
-          <td>{{ printable_text_for_encoding(row[column], VALUES['ENCODING']) }}</td>
+          <td>{{ !printable_text_for_encoding(row[column], VALUES['ENCODING']) }}</td>
         </tr>
     % end
       </tbody>

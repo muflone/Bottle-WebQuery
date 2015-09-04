@@ -31,7 +31,7 @@
           <td>&nbsp;</td>
     % end
     % for column in range(1, len(VALUES['FIELDS'])):
-          <td>{{ printable_text_for_encoding(row[column], VALUES['ENCODING']) }}</td>
+          <td>{{ !printable_text_for_encoding(row[column], VALUES['ENCODING']) }}</td>
     % end
         </tr>
     % last_value = row[0]

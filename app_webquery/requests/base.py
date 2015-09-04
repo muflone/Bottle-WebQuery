@@ -72,11 +72,13 @@ class RequestBase(object):
     if text is None:
       return 'Null'
     elif type(text) is unicode:
-      return text.encode(encoding)
+      return text.encode(encoding).replace('\\n', '<br />')
     elif type(text) is str:
-      return text.decode(encoding)
+      return text.decode(encoding).replace('\\n', '<br />')
+    elif type(text) is float:
+      return '%.2f' % text
     else:
-      return str(text)
+      return str(text).replace('\\n', '<br />')
 
   def prepare_connection_string(self, connection, engine, server, database, username, password):
     """Return a prepared connection string"""
