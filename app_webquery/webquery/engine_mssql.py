@@ -45,26 +45,8 @@ class WebQueryEngineMSSQL(WebQueryEngineBase):
   def get_data(self, statement, replaces=None, parameters=None):
     """Execute a statement and returns the data"""
     super(self.__class__, self).get_data(statement, replaces, parameters)
-    cursor = self.connection.cursor()
-    if replaces is not None:
-      statement = statement % replaces
-    if parameters is None:
-      cursor.execute(statement)
-    else:
-      cursor.execute(statement, parameters)
-    if cursor.description is not None:
-      fields = [r[0] for r in cursor.description]
-      data = cursor.fetchall()
-      logging.debug('%s: Got %d records' % (
-        self.__class__.__name__, len(data)))
-    else:
-      fields = None
-      data = None
-      logging.debug('%s: No records were returned' % (
-        self.__class__.__name__, ))
-    cursor.close()
-    self.save()
-    return (fields, data)
+    return super(self.__class__, self).get_data_full(
+      statement, replaces, parameters)
 
   def list_tables(self):
     """List all the tables"""
