@@ -39,16 +39,18 @@ class WebQueryEngineSQLite3(WebQueryEngineBase):
   def get_data(self, statement, replaces=None, parameters=None):
     """Execute a statement and returns the data"""
     super(self.__class__, self).get_data(statement, replaces, parameters)
+    cursor = self.connection.cursor()
     if replaces is not None:
       statement = statement % replaces
     if parameters is None:
-      cursor = self.connection.execute(statement)
+      cursor.execute(statement)
     else:
-      cursor = self.connection.execute(statement, parameters)
+      cursor.execute(statement, parameters)
     fields = [r[0] for r in cursor.description]
     data = cursor.fetchall()
     logging.info('%s: Got %d records' % (
       self.__class__.__name__, len(data)))
+    cursor.close()
     return (fields, data)
 
   def list_tables(self):
