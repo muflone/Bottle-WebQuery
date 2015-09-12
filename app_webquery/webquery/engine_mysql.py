@@ -52,11 +52,18 @@ class WebQueryEngineMySQL(WebQueryEngineBase):
       cursor.execute(statement)
     else:
       cursor.execute(statement, parameters)
-    fields = [r[0] for r in cursor.description]
-    data = cursor.fetchall()
+    if cursor.description is not None:
+      fields = [r[0] for r in cursor.description]
+      data = cursor.fetchall()
+      logging.debug('%s: Got %d records' % (
+        self.__class__.__name__, len(data)))
+    else:
+      fields = None
+      data = None
+      logging.debug('%s: No records were returned' % (
+        self.__class__.__name__, ))
     cursor.close()
-    logging.debug('%s: Got %d records' % (
-      self.__class__.__name__, len(data)))
+    self.save()
     return (fields, data)
 
   def list_tables(self):
