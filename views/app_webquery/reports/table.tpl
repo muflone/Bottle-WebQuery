@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-% for row in VALUES['DATA']:
+  % for row in VALUES['DATA']:
         <tr>
     % for column in row:
           <td>{{ !printable_text_for_encoding(column, VALUES['ENCODING']) }}</td>
