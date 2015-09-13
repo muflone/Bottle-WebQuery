@@ -11,6 +11,7 @@
   <body>
 % include('%s/div_error_messages.inc' % MODULE, ERRORS=VALUES['ERRORS'])
 % include('%s/table_parameters.inc' % MODULE)
+% include('%s/rows_count.inc' % MODULE)
 % if VALUES['DATA']:
     <!-- Begin of response data -->
     <table class="data">
