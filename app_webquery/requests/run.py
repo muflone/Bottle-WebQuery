@@ -27,6 +27,7 @@ class RequestRun(RequestBase):
     self.values['FIELDS'] = None
     self.values['DATA'] = None
     self.values['REQUIRES'] = []
+    self.values['REQUIRES'].append('jquery')
     # Parameters
     self.parameters = OrderedDict()
     self.extra_parameters = {}
@@ -125,8 +126,6 @@ class RequestRun(RequestBase):
           elif param_config.startswith('date:'):
             # Date input text
             param_values = datetime.date.today()
-            if 'jquery' not in self.values['REQUIRES']:
-              self.values['REQUIRES'].append('jquery')
             if 'jquery-ui' not in self.values['REQUIRES']:
               self.values['REQUIRES'].append('jquery-ui')
           elif param_config.startswith('values:'):
