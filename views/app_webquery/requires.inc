@@ -4,7 +4,8 @@
   % elif require == 'jquery-ui':
     % include('%s/jquery.inc' % MODULE, INCLUDE='ui')
   % elif require == 'tablesorter':
-    % include('%s/tablesorter.inc' % MODULE, INCLUDE='stylesheets')
-    % include('%s/tablesorter.inc' % MODULE, INCLUDE='scripts')
+    % tablesorter_options = ('resizable', )
+    % include('%s/tablesorter.inc' % MODULE, INCLUDE='stylesheets', OPTIONS=tablesorter_options)
+    % include('%s/tablesorter.inc' % MODULE, INCLUDE='scripts', OPTIONS=tablesorter_options)
   % end
 % end
