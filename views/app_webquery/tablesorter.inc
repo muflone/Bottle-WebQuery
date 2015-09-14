@@ -7,6 +7,12 @@
     $(function(){
       $('.data').tablesorter({
         sortReset: true,
+        widgets: [ 'resizable' ],
+        widgetOptions: {
+          storage_useSessionStorage: true,  /* Save to session */
+          resizable_addLastColumn: false,   /* Resize freely */
+          resizable: false,                 /* Don't restore columns width */
+        },
       });
     });
     </script>
