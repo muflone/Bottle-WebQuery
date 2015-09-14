@@ -15,6 +15,7 @@
 % if VALUES['DATA']:
     <!-- Begin of response data -->
     <div class="tablesorter-wrapper">
+  % include('%s/tablesorter.inc' % MODULE, INCLUDE='pager')
       <table class="data">
         <thead>
           <tr>
@@ -33,6 +34,7 @@
   % end
         </tbody>
       </table>
+  % include('%s/tablesorter.inc' % MODULE, INCLUDE='pager')
     </div>
     <!-- End of response data -->
 % end
