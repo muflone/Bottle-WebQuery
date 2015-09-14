@@ -14,24 +14,26 @@
 % include('%s/rows_count.inc' % MODULE)
 % if VALUES['DATA']:
     <!-- Begin of response data -->
-    <table class="data">
-      <thead>
-        <tr>
+    <div class="tablesorter-wrapper">
+      <table class="data">
+        <thead>
+          <tr>
   % for field in VALUES['FIELDS']:
-          <th>{{ field }}</th>
+            <th>{{ field }}</th>
   % end
-        </tr>
-      </thead>
-      <tbody>
+          </tr>
+        </thead>
+        <tbody>
   % for row in VALUES['DATA']:
-        <tr>
+          <tr>
     % for column in row:
-          <td>{{ !printable_text_for_encoding(column, VALUES['ENCODING']) }}</td>
+            <td>{{ !printable_text_for_encoding(column, VALUES['ENCODING']) }}</td>
     % end
-        </tr>
+          </tr>
   % end
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
     <!-- End of response data -->
 % end
   </body>

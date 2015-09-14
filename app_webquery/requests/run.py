@@ -28,6 +28,7 @@ class RequestRun(RequestBase):
     self.values['DATA'] = None
     self.values['REQUIRES'] = []
     self.values['REQUIRES'].append('jquery')
+    self.values['REQUIRES'].append('tablesorter')
     # Parameters
     self.parameters = OrderedDict()
     self.extra_parameters = {}
