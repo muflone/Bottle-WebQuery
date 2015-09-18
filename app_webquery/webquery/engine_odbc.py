@@ -98,7 +98,10 @@ def WebQueryEngineODBCClassFactory(name, driver):
   return newclass
 
 engine_classes = [WebQueryEngineODBC, WebQueryEngineODBCDSN]
-odbc_drivers = pypyodbc.drivers()
+try:
+  odbc_drivers = pypyodbc.drivers()
+except:
+  odbc_drivers = []
 for driver_count in range(len(odbc_drivers)):
   new_engine_class = WebQueryEngineODBCClassFactory(
       'WebQueryEngineODBCWithDriver_%d' % driver_count,
