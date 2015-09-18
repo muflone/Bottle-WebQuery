@@ -38,5 +38,8 @@ def bridge_response(response):
     # Error page without format
     code, message = response[6:].split(':', 1)
     return bottle.HTTPResponse(message, int(code))
+  elif response.startswith('TEXT:'):
+    bottle.response.set_header('Content-Type', 'text/plain')
+    return response[5:]
   else:
     return response
