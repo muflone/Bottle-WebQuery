@@ -89,3 +89,7 @@ class RequestBase(object):
       'USERNAME': username,
       'PASSWORD': password,
     }
+
+  def set_content_type(self, content_type):
+    """Set the content-type"""
+    bottle.response.set_header('Content-Type', content_type)
