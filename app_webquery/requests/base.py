@@ -93,3 +93,8 @@ class RequestBase(object):
   def set_content_type(self, content_type):
     """Set the content-type"""
     bottle.response.set_header('Content-Type', content_type)
+
+  def set_filename(self, filename):
+    """Set the content-disposition filename"""
+    bottle.response.set_header('Content-Disposition',
+      'attachment; filename="%s"' % filename)
