@@ -68,7 +68,7 @@ class WebQueryEngineDB2(WebQueryEngineBase):
     """Execute a statement and returns the data"""
     super(self.__class__, self).get_data(statement, replaces, parameters)
     return super(self.__class__, self).get_data_full(
-      str(statement), map(str, replaces), parameters)
+      statement, replaces, parameters, False)
 
   def list_tables(self):
     """List all the tables"""

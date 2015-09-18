@@ -40,7 +40,7 @@ class WebQueryEngineSQLite3(WebQueryEngineBase):
     """Execute a statement and returns the data"""
     super(self.__class__, self).get_data(statement, replaces, parameters)
     return super(self.__class__, self).get_data_full(
-      statement, replaces, parameters)
+      statement, replaces, parameters, True)
 
   def list_tables(self):
     """List all the tables"""

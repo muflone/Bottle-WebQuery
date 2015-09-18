@@ -37,9 +37,14 @@ class WebQueryEngineBase(object):
     logging.debug('%s: Parameters: %s' % (
       self.__class__.__name__, parameters))
 
-  def get_data_full(self, statement, replaces=None, parameters=None):
+  def get_data_full(self, statement, replaces=None, parameters=None, with_unicode=True):
     """Execute a statement and returns the data from a cursor"""
     cursor = self.connection.cursor()
+    if not with_unicode:
+      # Convert statement and replaces to string
+      statement = str(statement)
+      if replaces is not None:
+        replaces = dict((str(k), str(v)) for (k, v) in replaces.items())
     if replaces is not None:
       statement = statement % replaces
     if parameters is None:
