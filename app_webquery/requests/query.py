@@ -15,6 +15,7 @@ class RequestQuery(RequestBase):
     self.args['SQL'] = self.params.get_utf8_item('sql')
     self.args['CATALOG'] = self.params.get_utf8_item('catalog')
     self.args['LIST_TABLES'] = self.params.get_item('list_tables')
+    self.args['FORMAT'] = self.params.get_item('format')
     # Response values
     self.values = {}
     self.values['ERRORS'] = []
@@ -75,7 +76,13 @@ class RequestQuery(RequestBase):
         self.values['ENCODING'] = catalog_encoding
         engine.close()
     configuration.set_locale(None)
-    return self.get_template('query.tpl',
-      ARGS=self.args,
-      VALUES=self.values,
-      printable_text_for_encoding=self.printable_text_for_encoding)
+    if self.args['FORMAT'] == 'csv':
+      # Returns results like text/csv
+      self.set_content_type('text/csv')
+      self.set_filename('query.csv')
+      return self.output_to_csv(self.values['DATA'])
+    else:
+      return self.get_template('query.tpl',
+        ARGS=self.args,
+        VALUES=self.values,
+        printable_text_for_encoding=self.printable_text_for_encoding)

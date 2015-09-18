@@ -2,6 +2,8 @@ import bottle
 import urllib2
 import configuration
 import logging
+import StringIO
+import csv
 
 import app_webquery.paths
 import app_webquery.parameters
@@ -98,3 +100,15 @@ class RequestBase(object):
     """Set the content-disposition filename"""
     bottle.response.set_header('Content-Disposition',
       'attachment; filename="%s"' % filename)
+
+  def output_to_csv(self, data):
+    """Returns data in csv format"""
+    writer = StringIO.StringIO()
+    csvwriter = csv.writer(
+      writer,
+      delimiter=',',
+      quotechar='"',
+      quoting=csv.QUOTE_NONNUMERIC)
+    csvwriter.writerows(data)
+    writer.seek(0)
+    return writer

@@ -15,6 +15,7 @@ class RequestRun(RequestBase):
     # Request values
     self.args = {}
     self.args['UUID'] = self.params.get_item('uuid')
+    self.args['FORMAT'] = self.params.get_item('format')
     # Response values
     self.values = {}
     self.values['ENGINE'] = None
@@ -194,9 +195,15 @@ class RequestRun(RequestBase):
     engine_settings.close()
     engine_settings = None
     configuration.set_locale(None)
-    return self.get_template('reports/%s.tpl' % self.values['REPORT'],
-      ARGS=self.args,
-      VALUES=self.values,
-      PARAMETERS=self.parameters,
-      printable_text_for_encoding=self.printable_text_for_encoding,
-      datetime=datetime)
+    if not self.values['ERRORS'] and self.args['FORMAT'] == 'csv':
+      # Returns results like text/csv
+      self.set_content_type('text/csv')
+      self.set_filename('%s.csv' % self.values['DESCRIPTION'])
+      return self.output_to_csv(self.values['DATA'])
+    else:
+      return self.get_template('reports/%s.tpl' % self.values['REPORT'],
+        ARGS=self.args,
+        VALUES=self.values,
+        PARAMETERS=self.parameters,
+        printable_text_for_encoding=self.printable_text_for_encoding,
+        datetime=datetime)
