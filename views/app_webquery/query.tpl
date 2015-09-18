@@ -37,6 +37,14 @@
               </select>
             </td>
           </tr>
+          <tr>
+            <th>Options:</th>
+            <td>
+              <div>\\
+% include('%s/input_check.inc' % MODULE, NAME='format', VALUE='csv', SELECTED='', TITLE='Output in CSV format')
+</div>
+            </td>
+          </tr>
         </tbody>
         <tfoot>
           <tr>
