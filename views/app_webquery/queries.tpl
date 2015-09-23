@@ -135,5 +135,6 @@
     </table>
 % end
     <!-- End of response data -->
+% include('%s/footer.inc' % MODULE)
   </body>
 </html>

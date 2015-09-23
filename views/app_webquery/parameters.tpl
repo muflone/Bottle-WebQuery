@@ -64,5 +64,6 @@
     </table>
     <!-- End of response data -->
 % end
+% include('%s/footer.inc' % MODULE)
   </body>
 </html>

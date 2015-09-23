@@ -13,3 +13,7 @@ body {
 .right {
   text-align: right;
 }
+
+.footer {
+  padding-top: 8px;
+}
