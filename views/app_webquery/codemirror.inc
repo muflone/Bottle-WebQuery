@@ -1,6 +1,7 @@
 % if INCLUDE == 'stylesheets':
     <link type="text/css" rel="stylesheet" href="static/css/codemirror.css">
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/lib/codemirror.css" />
+    <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/addon/dialog/dialog.css" />
     <link type="text/css" rel="stylesheet" href="static/codemirror-5.6/addon/hint/show-hint.css" />
     <link type="text/css" rel="stylesheet" href="static/css/codemirror-theme-custom.css">
     <link type="text/css" rel="stylesheet" href="static/css/codemirror-fullscreen-full-width.css">
@@ -14,6 +15,9 @@
     <script src="static/codemirror-5.6/addon/edit/closebrackets.js"></script>
     <script src="static/codemirror-5.6/addon/edit/matchbrackets.js"></script>
     <script src="static/codemirror-5.6/addon/display/fullscreen.js"></script>
+    <script src="static/codemirror-5.6/addon/dialog/dialog.js"></script>
+    <script src="static/codemirror-5.6/addon/search/search.js"></script>
+    <script src="static/codemirror-5.6/addon/search/searchcursor.js"></script>
 % elif INCLUDE == 'body':
     <script>
     window.onload = function() {
@@ -27,6 +31,11 @@
           "Esc": function(cm) {
             if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
           },
+          "Ctrl-F": "find",
+          "Ctrl-G": "findNext",
+          "Shift-Ctrl-G": "findPrevious",
+          "Ctrl-R": "replace",
+          "Shift-Ctrl-R": "replaceAll",
         },
         theme: "custom",
         lineWrapping: false,
