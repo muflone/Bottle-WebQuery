@@ -43,6 +43,9 @@
               <div>\\
 % include('%s/input_check.inc' % MODULE, NAME='format', VALUE='csv', SELECTED='', TITLE='Output in CSV format')
 </div>
+              <div>\\
+% include('%s/input_check.inc' % MODULE, NAME='save', VALUE='save', SELECTED='', TITLE='Save query instead of execute it')
+</div>
             </td>
           </tr>
         </tbody>

@@ -1,3 +1,5 @@
+import urllib
+
 import configuration
 from .base import RequestBase
 
@@ -16,6 +18,15 @@ class RequestQuery(RequestBase):
     self.args['CATALOG'] = self.params.get_utf8_item('catalog')
     self.args['LIST_TABLES'] = self.params.get_item('list_tables')
     self.args['FORMAT'] = self.params.get_item('format')
+    self.args['SAVE'] = self.params.get_item('save')
+    # Save query by redirecting to the queries page
+    if self.args['SAVE']:
+      return 'REDIRECT:queries?%s' % urllib.urlencode(
+      {
+        'catalog': self.args['CATALOG'].encode('utf-8'),
+        'sql': self.args['SQL'].encode('utf-8'),
+        'confirm': 'ok',
+      })
     # Response values
     self.values = {}
     self.values['ERRORS'] = []
