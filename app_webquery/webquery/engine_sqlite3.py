@@ -31,10 +31,12 @@ class WebQueryEngineSQLite3(WebQueryEngineBase):
   def execute(self, statement, parameters=None):
     """Execute a statement"""
     super(self.__class__, self).execute(statement, parameters)
-    if parameters is None:
-      self.connection.execute(statement)
-    else:
-      self.connection.execute(statement, parameters)
+    sql = statement.replace('\r\n', '\n').replace('\r', '\n')
+    for item in sql.split(';\n'):
+      if parameters is None:
+        self.connection.execute(item)
+      else:
+        self.connection.execute(item, parameters)
 
   def get_data(self, statement, replaces=None, parameters=None):
     """Execute a statement and returns the data"""
