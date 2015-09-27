@@ -60,6 +60,12 @@ class BottleApplication(bottle.Bottle):
       """Serve the page"""
       return serve_object_page(RequestRun())
 
+    @self.route('/maintenance')
+    @self.post('/maintenance')
+    def serve():
+      """Serve the page"""
+      return serve_object_page(RequestMaintenance())
+
 def setup():
   """Initial setup, called during the application mount"""
   # Create a new application
