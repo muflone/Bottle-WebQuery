@@ -25,6 +25,17 @@ class BottleApplication(bottle.Bottle):
       """Serve the page"""
       return bridge_response('REDIRECT:query')
 
+    @self.post('/login')
+    @self.route('/login')
+    def serve():
+      """Serve the login page"""
+      return serve_object_page(RequestLogin())
+
+    @self.route('/logout')
+    def serve():
+      """Serve the login page"""
+      return serve_object_page(RequestLogout())
+
     @self.route('/query')
     @self.post('/query')
     def serve():

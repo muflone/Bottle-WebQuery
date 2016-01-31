@@ -19,3 +19,15 @@ class Parameters(object):
   def get_action(self):
     """Get the action argument"""
     return self.get_item('action')
+
+  def get_username(self):
+    """Get the username argument"""
+    return self.get_item('username').lower()
+
+  def get_password(self):
+    """Get the password argument"""
+    return self.get_item('password')
+
+  def get_forward(self):
+    """Get the forward argument"""
+    return self.get_item('forward')

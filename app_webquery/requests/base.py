@@ -5,11 +5,17 @@ import logging
 import StringIO
 import csv
 
+from app_webquery import authenticators
 import app_webquery.paths
 import app_webquery.parameters
 import app_webquery.session
 import app_webquery.webquery
 from app_webquery.constants import MODULE_NAME, SETTINGS_DB
+
+SESSION_AUTHENTICATED = 'authenticated'
+SESSION_USERNAME = 'username'
+SESSION_FULLNAME = 'fullname'
+SESSION_ROLES = 'roles'
 
 # List of engines modules
 db_engines = app_webquery.webquery.detect_db_engines()
@@ -19,13 +25,21 @@ class RequestBase(object):
     """Baseclass initialization for all the Request response pages"""
     self.paths = app_webquery.paths.Paths()
     self.params = app_webquery.parameters.Parameters()
+    self.login_required = True
     self.session = app_webquery.session.ExpiringSession(
       bottle.request.environ.get('beaker.session'))
     self.engines = db_engines
 
   def serve(self):
     """Base method for serving the response page"""
-    pass
+    if not self.authentication_required():
+      if bool(self.params.get_username()) and bool(self.params.get_password()):
+        bottle.abort(403, 'Invalid username or password')
+      else:
+        bottle.redirect('login?forward=%s%s%s' % (
+          self.get_request_page(),
+          urllib2.quote('?'),
+          urllib2.quote(self.get_request_query())))
 
   def get_template(self, template_name, **extra_arguments):
     """Return the template associated to the template_name with its
@@ -116,3 +130,40 @@ class RequestBase(object):
     csvwriter.writerows(data)
     writer.seek(0)
     return writer
+
+  def authentication_required(self):
+    """Check if the user session is authenticated"""
+    if self.login_required:
+      if SESSION_AUTHENTICATED in self.session:
+        # Already authenticated (in session)
+        return True
+      elif self.params.get_username() and self.params.get_password():
+        # Check for automatic login by providing valid username and password
+        result = authenticators.check_login(self.open_settings_db(),
+                                            self.params.get_username(),
+                                            self.params.get_password())
+        if result:
+          self.set_authenticated(
+            status=True,
+            username=result[authenticators.KEY_USERNAME],
+            fullname=result[authenticators.KEY_FULLNAME],
+            roles=result[authenticators.KEY_ROLES])
+          return True
+        else:
+          return False
+      else:
+        # Not authenticated
+        return False
+    else:
+      # Authentication not needed
+      return True
+
+  def set_authenticated(self, status, username, fullname, roles):
+    """Set the authentication status"""
+    if status:
+      self.session[SESSION_AUTHENTICATED] = status
+      self.session[SESSION_USERNAME] = username
+      self.session[SESSION_FULLNAME] = fullname
+      self.session[SESSION_ROLES] = roles
+    else:
+      self.session.delete()
