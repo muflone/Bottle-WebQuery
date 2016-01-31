@@ -36,6 +36,11 @@ class BottleApplication(bottle.Bottle):
       """Serve the login page"""
       return serve_object_page(RequestLogout())
 
+    @self.route('/info')
+    def serve():
+      """Serve the page"""
+      return serve_object_page(RequestInfo())
+
     @self.route('/query')
     @self.post('/query')
     def serve():

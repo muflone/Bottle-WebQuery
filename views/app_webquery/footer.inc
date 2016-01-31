@@ -3,5 +3,6 @@
       <a href="folders">Folders</a> |
       <a href="queries">Queries</a> |
       <a href="query">Query</a> |
+      <a href="info">Info</a> |
       <a href="logout">Logout</a> |
     </div>

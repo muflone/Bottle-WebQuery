@@ -6,3 +6,4 @@ from .folders import RequestFolders
 from .parameters import RequestParameters
 from .queries import RequestQueries
 from .run import RequestRun
+from .info import RequestInfo
