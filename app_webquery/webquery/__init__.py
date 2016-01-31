@@ -22,6 +22,8 @@ def detect_db_engines():
       # Cycle each engine class
       for engine_class in engine_classes:
         engines[engine_class.descriptor] = engine_class
-    except ImportError:
+    except Exception as error:
       logging.info('Skipping DB engine %s' % module_name)
+      if not isinstance(error, ImportError):
+        logging.error('Unexpected exception: %s' % error.value)
   return engines
