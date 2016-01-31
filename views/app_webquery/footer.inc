@@ -3,5 +3,4 @@
       <a href="folders">Folders</a> |
       <a href="queries">Queries</a> |
       <a href="query">Query</a> |
-      <a href="maintenance">Maintenance</a> |
     </div>
