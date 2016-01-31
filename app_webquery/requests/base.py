@@ -7,6 +7,7 @@ import csv
 
 import app_webquery.paths
 import app_webquery.parameters
+import app_webquery.session
 import app_webquery.webquery
 from app_webquery.constants import MODULE_NAME, SETTINGS_DB
 
@@ -18,6 +19,8 @@ class RequestBase(object):
     """Baseclass initialization for all the Request response pages"""
     self.paths = app_webquery.paths.Paths()
     self.params = app_webquery.parameters.Parameters()
+    self.session = app_webquery.session.ExpiringSession(
+      bottle.request.environ.get('beaker.session'))
     self.engines = db_engines
 
   def serve(self):

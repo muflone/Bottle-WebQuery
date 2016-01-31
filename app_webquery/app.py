@@ -1,7 +1,8 @@
 import bottle
+from beaker.middleware import SessionMiddleware
 
 import configuration
-from app_constants import DIR_STATIC
+from app_constants import DIR_STATIC, DIR_BEAKER_CACHE, DIR_BEAKER_LOCKS, SESSION_TIMEOUT
 from bridge_response import bridge_response
 from .constants import MODULE_NAME
 from .requests import *
@@ -63,5 +64,22 @@ class BottleApplication(bottle.Bottle):
 def setup():
   """Initial setup, called during the application mount"""
   # Create a new application
-  app = BottleApplication()
+  session_opts = {
+      'session.type': 'file',
+      'session.cookie_expires': True,
+      'session.data_dir': DIR_BEAKER_CACHE,
+      'session.lock_dir': DIR_BEAKER_LOCKS,
+      'session.auto': True,
+      'session.timeout': SESSION_TIMEOUT,
+      'session.secret': None,
+      'session.encrypt_key': False,
+      'session.validate_key': False,
+      'session.invalidate_corrupt': True,
+  }
+
+  app = SessionMiddleware(
+      BottleApplication(),
+      config=session_opts,
+      environ_key='beaker.session',
+      key='beaker.session.id')
   return app
