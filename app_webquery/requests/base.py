@@ -32,6 +32,7 @@ class RequestBase(object):
                            OBJECT=self,
                            quote=urllib2.quote,
                            REQUEST=bottle.request,
+                           ACTION=self.params.get_action(),
                            **extra_arguments)
 
   def get_request_page(self):

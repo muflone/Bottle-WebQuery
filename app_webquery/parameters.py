@@ -15,3 +15,7 @@ class Parameters(object):
   def get_all(self, name):
     """Get all the arguments specified by name"""
     return bottle.request.params.getall(name)
+
+  def get_action(self):
+    """Get the action argument"""
+    return self.get_item('action')
