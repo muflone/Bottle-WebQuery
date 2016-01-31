@@ -1,9 +1,11 @@
 import logging
 
 from .dummy import AuthenticatorDummy
+from .disabled import AuthenticatorDisabled
 
 ALGORITHMS_CLASSES = {
   AuthenticatorDummy.ALGORITHM: AuthenticatorDummy,
+  AuthenticatorDisabled.ALGORITHM: AuthenticatorDisabled,
 }
 KEY_USERNAME = 'username'
 KEY_FULLNAME = 'fullname'
