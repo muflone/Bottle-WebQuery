@@ -5,6 +5,7 @@ from .disabled import AuthenticatorDisabled
 from .plain import AuthenticatorPlain
 from .hash_md5 import AuthenticatorMD5
 from .hash_sha1 import AuthenticatorSHA1
+from .hash_sha256 import AuthenticatorSHA256
 
 ALGORITHMS_CLASSES = {
   AuthenticatorDummy.ALGORITHM: AuthenticatorDummy,
@@ -12,6 +13,7 @@ ALGORITHMS_CLASSES = {
   AuthenticatorPlain.ALGORITHM: AuthenticatorPlain,
   AuthenticatorMD5.ALGORITHM: AuthenticatorMD5,
   AuthenticatorSHA1.ALGORITHM: AuthenticatorSHA1,
+  AuthenticatorSHA256.ALGORITHM: AuthenticatorSHA256,
 }
 KEY_USERNAME = 'username'
 KEY_FULLNAME = 'fullname'
