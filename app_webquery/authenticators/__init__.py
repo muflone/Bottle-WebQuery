@@ -4,12 +4,14 @@ from .dummy import AuthenticatorDummy
 from .disabled import AuthenticatorDisabled
 from .plain import AuthenticatorPlain
 from .hash_md5 import AuthenticatorMD5
+from .hash_sha1 import AuthenticatorSHA1
 
 ALGORITHMS_CLASSES = {
   AuthenticatorDummy.ALGORITHM: AuthenticatorDummy,
   AuthenticatorDisabled.ALGORITHM: AuthenticatorDisabled,
   AuthenticatorPlain.ALGORITHM: AuthenticatorPlain,
   AuthenticatorMD5.ALGORITHM: AuthenticatorMD5,
+  AuthenticatorSHA1.ALGORITHM: AuthenticatorSHA1,
 }
 KEY_USERNAME = 'username'
 KEY_FULLNAME = 'fullname'
