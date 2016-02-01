@@ -3,11 +3,13 @@ import logging
 from .dummy import AuthenticatorDummy
 from .disabled import AuthenticatorDisabled
 from .plain import AuthenticatorPlain
+from .hash_md5 import AuthenticatorMD5
 
 ALGORITHMS_CLASSES = {
   AuthenticatorDummy.ALGORITHM: AuthenticatorDummy,
   AuthenticatorDisabled.ALGORITHM: AuthenticatorDisabled,
   AuthenticatorPlain.ALGORITHM: AuthenticatorPlain,
+  AuthenticatorMD5.ALGORITHM: AuthenticatorMD5,
 }
 KEY_USERNAME = 'username'
 KEY_FULLNAME = 'fullname'
