@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Configure queries</title>
+    <title>User login</title>
     <link type="text/css" rel="stylesheet" href="static/css/styles.css">
     <link type="text/css" rel="stylesheet" href="static/css/login.css">
   </head>
