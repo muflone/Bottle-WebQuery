@@ -8,6 +8,7 @@ class RequestRun(RequestBase):
   def __init__(self):
     """Class initialization"""
     RequestBase.__init__(self)
+    self.login_required = False
 
   def serve(self):
     """Handle the request and serve the response"""
