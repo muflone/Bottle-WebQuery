@@ -71,6 +71,12 @@ class BottleApplication(bottle.Bottle):
       """Serve the page"""
       return serve_object_page(RequestParameters())
 
+    @self.route('/roles')
+    @self.post('/roles')
+    def serve():
+      """Serve the page"""
+      return serve_object_page(RequestRoles())
+
     @self.route('/run')
     @self.post('/run')
     def serve():

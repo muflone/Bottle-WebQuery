@@ -7,3 +7,4 @@ from .parameters import RequestParameters
 from .queries import RequestQueries
 from .run import RequestRun
 from .info import RequestInfo
+from .roles import RequestRoles
