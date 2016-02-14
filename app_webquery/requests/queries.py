@@ -8,6 +8,7 @@ class RequestQueries(RequestBase):
   def __init__(self):
     """Class initialization"""
     RequestBase.__init__(self)
+    self.valid_roles = ['admin', ]
 
   def serve(self):
     """Handle the request and serve the response"""

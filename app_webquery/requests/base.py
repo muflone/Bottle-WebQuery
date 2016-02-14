@@ -26,6 +26,7 @@ class RequestBase(object):
     self.paths = app_webquery.paths.Paths()
     self.params = app_webquery.parameters.Parameters()
     self.login_required = True
+    self.valid_roles = []
     self.session = app_webquery.session.ExpiringSession(
       bottle.request.environ.get('beaker.session'))
     self.engines = db_engines
@@ -40,6 +41,17 @@ class RequestBase(object):
           self.get_request_page(),
           urllib2.quote('?'),
           urllib2.quote(self.get_request_query())))
+    elif SESSION_ROLES in self.session and self.valid_roles:
+      # Check for a valid role
+      if not ((self.valid_roles) and any(
+          role in self.valid_roles for role in self.session[SESSION_ROLES])):
+        error_message = 'Unauthorized access for the user "{username}".\n' \
+                        'User roles: {user_roles}\n' \
+                        'Valid roles: {page_roles}'.format(
+                          username=self.session[SESSION_USERNAME],
+                          user_roles=', '.join(self.session[SESSION_ROLES]),
+                          page_roles=', '.join(self.valid_roles))
+        bottle.abort(403, error_message)
 
   def get_template(self, template_name, **extra_arguments):
     """Return the template associated to the template_name with its
