@@ -34,7 +34,7 @@ class RequestBase(object):
   def serve(self):
     """Base method for serving the response page"""
     if not self.authentication_required():
-      if bool(self.params.get_username()) and bool(self.params.get_password()):
+      if bool(self.params.get_username()):
         bottle.abort(403, 'Invalid username or password')
       else:
         bottle.redirect('login?forward=%s%s%s' % (
@@ -149,7 +149,7 @@ class RequestBase(object):
       if SESSION_AUTHENTICATED in self.session:
         # Already authenticated (in session)
         return True
-      elif self.params.get_username() and self.params.get_password():
+      elif self.params.get_username():
         # Check for automatic login by providing valid username and password
         result = authenticators.check_login(self.open_settings_db(),
                                             self.params.get_username(),
