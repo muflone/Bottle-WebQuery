@@ -34,7 +34,7 @@ class RequestBase(object):
   def serve(self):
     """Base method for serving the response page"""
     if not self.authentication_required():
-      if bool(self.params.get_username()):
+      if self.params.get_username():
         bottle.abort(403, 'Invalid username or password')
       else:
         bottle.redirect('login?forward=%s%s%s' % (
