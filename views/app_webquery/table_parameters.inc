@@ -29,7 +29,12 @@
   % end
         </tbody>
         <tfoot>
-          <tr><td colspan="2"><input type="submit" name="confirm" value="Confirm"></td></tr>
+          <tr>
+            <td colspan="2">
+              <input type="submit" name="confirm" value="Confirm">
+              <input type="submit" name="format" value="CSV">
+            </td>
+          </tr>
         </tfoot>
       </table>
     </form>

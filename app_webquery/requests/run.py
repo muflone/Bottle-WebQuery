@@ -196,7 +196,7 @@ class RequestRun(RequestBase):
     engine_settings.close()
     engine_settings = None
     configuration.set_locale(None)
-    if not self.values['ERRORS'] and self.args['FORMAT'] == 'csv':
+    if not self.values['ERRORS'] and self.args['FORMAT'].lower() == 'csv':
       # Returns results like text/csv
       self.set_content_type('text/csv')
       self.set_filename('%s.csv' % self.values['DESCRIPTION'])
