@@ -4,6 +4,7 @@ db_engine_modules = (
   'engine_sqlite3',
   'engine_db2',
   'engine_mysql',
+  'engine_pymysql',
   'engine_postgresql',
   'engine_mssql',
   'engine_odbc',
