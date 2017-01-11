@@ -17,7 +17,7 @@ except ImportError:
 from engine_base import WebQueryEngineBase
 
 class WebQueryEngineDB2(WebQueryEngineBase):
-  description = 'IBM DB2'
+  description = 'IBM DB2 (jaydebeapi/db2)'
   descriptor = 'db2'
 
   def __init__(self, connection, username, password, database, server):

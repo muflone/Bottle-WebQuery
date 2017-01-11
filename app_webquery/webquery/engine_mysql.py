@@ -4,7 +4,7 @@ import logging
 from engine_base import WebQueryEngineBase
 
 class WebQueryEngineMySQL(WebQueryEngineBase):
-  description = 'MySQL'
+  description = 'MySQL (MySQLdb)'
   descriptor = 'mysql'
 
   def __init__(self, connection, username, password, database, server):

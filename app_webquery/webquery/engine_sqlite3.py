@@ -4,7 +4,7 @@ import logging
 from engine_base import WebQueryEngineBase
 
 class WebQueryEngineSQLite3(WebQueryEngineBase):
-  description = 'SQLite 3'
+  description = 'SQLite 3 (sqlite3)'
   descriptor = 'sqlite3'
 
   def __init__(self, connection, username, password, database, server):

@@ -4,7 +4,7 @@ import logging
 from engine_base import WebQueryEngineBase
 
 class WebQueryEngineODBC(WebQueryEngineBase):
-  description = 'ODBC'
+  description = 'ODBC (pypyodbc)'
   descriptor = 'odbc'
 
   def __init__(self, connection, username, password, database, server):
@@ -57,7 +57,7 @@ class WebQueryEngineODBC(WebQueryEngineBase):
     self.connection.commit()
 
 class WebQueryEngineODBCDSN(WebQueryEngineODBC):
-  description = 'ODBC DSN'
+  description = 'ODBC DSN (pypyodbc)'
   descriptor = 'odbcdsn'
 
   def __init__(self, connection, username, password, database, server):
@@ -69,7 +69,7 @@ class WebQueryEngineODBCDSN(WebQueryEngineODBC):
       'DSN=%s' % connection, username, password, database, server)
 
 class WebQueryEngineODBCWithDriver(WebQueryEngineODBC):
-  description = 'ODBC DSN'
+  description = 'ODBC DSN (pypyodbc)'
   descriptor = 'odbcdsn'
 
   def __init__(self, connection, username, password, database, server):
@@ -90,7 +90,7 @@ def WebQueryEngineODBCClassFactory(name, driver):
   newclass = type(name, (WebQueryEngineODBCWithDriver, ),
     {
       '__init__': __init__,
-      'description': 'ODBC with driver %s' % driver,
+      'description': 'ODBC with driver %s (pypyodbc)' % driver,
       'descriptor': 'odbc-driver-%s' % driver,
       'driver': driver
     }

@@ -4,7 +4,7 @@ import logging
 from engine_base import WebQueryEngineBase
 
 class WebQueryEnginePostgreSQL(WebQueryEngineBase):
-  description = 'PostgreSQL'
+  description = 'PostgreSQL (psycopg2)'
   descriptor = 'postgresql'
 
   def __init__(self, connection, username, password, database, server):

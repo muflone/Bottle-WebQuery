@@ -4,7 +4,7 @@ import logging
 from engine_base import WebQueryEngineBase
 
 class WebQueryEngineMSSQL(WebQueryEngineBase):
-  description = 'Microsoft SQL Server'
+  description = 'Microsoft SQL Server (pymssql)'
   descriptor = 'mssql'
 
   def __init__(self, connection, username, password, database, server):
